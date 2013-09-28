@@ -76,4 +76,9 @@ public class TestAdjacencyList {
 		assert(list.contains(158));
 		assertEquals(4, list.size());
 	}
+
+	@Test
+	public void testCalcIndex() {
+		assertEquals(0, zero.calcIndex());
+	}
 }
