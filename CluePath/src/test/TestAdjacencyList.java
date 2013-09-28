@@ -2,9 +2,14 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestAdjacencyList {
+	@Before
+	public void setUp() {
+		
+	}
 
 	@Test
 	public void testAdjacencyListMiddle() {
@@ -49,5 +54,16 @@ public class TestAdjacencyList {
 	@Test
 	public void testAdjacencyListBottomLeftCorner() {
 		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSecondColumnMiddleOfGrid() {
+		List
+		assertEquals()
+	}
+
+	@Test
+	public void testSecondFromLastColumnMiddleOfGrid() {
+		fail("");
 	}
 }
