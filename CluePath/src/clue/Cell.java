@@ -1,5 +1,9 @@
 package clue;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
+
 public class Cell {
 	public Cell() {
 		
@@ -13,11 +17,11 @@ public class Cell {
 		
 	}
 	
-	public getTargets() {
-		
+	public Set<Integer> getTargets() {
+		return null;
 	}
 	
-	public getAdjList() {
-		
+	public LinkedList<Integer> getAdjList() {
+		return null;
 	}
 }
