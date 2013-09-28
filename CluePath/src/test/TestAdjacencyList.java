@@ -2,13 +2,15 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+
 import org.junit.Before;
 import org.junit.Test;
 
 public class TestAdjacencyList {
 	@Before
 	public void setUp() {
-		
+		Cell cell = new Cell();
 	}
 
 	@Test
@@ -58,7 +60,9 @@ public class TestAdjacencyList {
 
 	@Test
 	public void testSecondColumnMiddleOfGrid() {
-		List
+		LinkedList<Integer> list = getAdjList;
+		list.add();
+		
 		assertEquals()
 	}
 
