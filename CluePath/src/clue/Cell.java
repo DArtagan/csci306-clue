@@ -60,7 +60,6 @@ public class Cell {
 		if(this.right != null) adjList.add(this.right);
 		if(this.bottom != null) adjList.add(this.bottom);
 		if(this.left != null) adjList.add(this.left);
-		System.out.println(adjList);
 		return adjList;
 	}
 }

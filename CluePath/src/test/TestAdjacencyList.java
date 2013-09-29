@@ -12,19 +12,20 @@ import clue.Cell;
 public class TestAdjacencyList {
 	Cell zero, fiveTwentyEight, twoNinetyNine, fourThirtySix, twoFiftyFour, oneFiftyNine;
 	
+	@SuppressWarnings("unused")
 	@Before
 	public void setUp() {
-		Cell zero = new Cell(0);
-		Cell fiveTwentyEight = new Cell(523);
-		Cell twoNinetyNine = new Cell(299);
-		Cell fourThirtySix = new Cell(436);
-		Cell twoFiftyFour = new Cell(254);
-		Cell oneFiftyNine = new Cell(159);
-		
+		zero = new Cell(0);
+		fiveTwentyEight = new Cell(523);
+		twoNinetyNine = new Cell(299);
+		fourThirtySix = new Cell(436);
+		twoFiftyFour = new Cell(254);
+		oneFiftyNine = new Cell(159);
 	}
 
 	@Test
 	public void testAdjacencyListTopLeftCorner() {
+		Cell zero = new Cell(0);
 		LinkedList<Integer> list = zero.getAdjList();
 		assert(list.contains(1));
 		assert(list.contains(23));
