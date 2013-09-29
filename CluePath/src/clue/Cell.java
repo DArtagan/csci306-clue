@@ -15,21 +15,23 @@ public class Cell {
 	int MAX_COL = 23;	// One beyond the board col size
 	
 	// Variables
+	private Integer index = null;
 	private Integer top = null;		// Setting these as Integer so 
 	private Integer right = null;	// that they can be null.
 	private Integer bottom = null;
 	private Integer left = null;
 	
 	// Constructors
-	public Cell(int index) {
-		if((index - MAX_COL) >= 0)
-			this.top = index - MAX_COL;
-		if((index + MAX_COL) < (MAX_ROW*MAX_COL))
-			this.bottom = index + MAX_COL;
-		if((index % MAX_COL) > 0)
-			this.left = index - 1;
-		if(((index + 1) % MAX_COL) > 0)
-			this.right = index + 1;
+	public Cell(int i) {
+		this.index = i;
+		if((this.index - MAX_COL) >= 0)
+			this.top = this.index - MAX_COL;
+		if((this.index + MAX_COL) < (MAX_ROW*MAX_COL))
+			this.bottom = this.index + MAX_COL;
+		if((this.index % MAX_COL) > 0)
+			this.left = this.index - 1;
+		if(((this.index + 1) % MAX_COL) > 0)
+			this.right = this.index + 1;
 	}
 	
 	public Cell(int row, int col) {
@@ -37,13 +39,26 @@ public class Cell {
 	}
 	
 	// Methods
-	
 	public void calcAdjacencies() {
 		
 	}
 
 	public LinkedList<Integer> startTargets(int start, int steps) {
-		return null;
+		LinkedList<Integer> stepList = new LinkedList<Integer>();
+		stepList.add(calcTargets(start, steps, stepList));
+		return stepList;
+	}
+	
+	public Integer calcTargets(int start, int steps, LinkedList<Integer> list) {
+		if(steps == 0) {
+			
+		} else {
+			list.add(calcTargets(Cell(start).top, steps));
+			list.add(calcTargets(Cell(start).right, steps));
+			list.add(calcTargets(Cell(start).bottom, steps));
+			list.add(calcTargets(Cell(start).left, steps));
+			return stepList;
+		}
 	}
 
 	public int calcIndex(int row, int col) {
