@@ -15,11 +15,11 @@ public class TestAdjacencyList {
 	@Before
 	public void setUp() {
 		Cell zero = new Cell(0);
-		Cell fiveTwentyEight = new Cell(0);
-		Cell twoNinetyNine = new Cell(0);
-		Cell fourThirtySix = new Cell(0);
-		Cell twoFiftyFour = new Cell(0);
-		Cell oneFiftyNine = new Cell(0);
+		Cell fiveTwentyEight = new Cell(523);
+		Cell twoNinetyNine = new Cell(299);
+		Cell fourThirtySix = new Cell(436);
+		Cell twoFiftyFour = new Cell(254);
+		Cell oneFiftyNine = new Cell(159);
 		
 	}
 
