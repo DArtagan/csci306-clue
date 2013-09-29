@@ -26,9 +26,9 @@ public class Cell {
 			this.top = index - MAX_COL;
 		if((index + MAX_COL) < (MAX_ROW*MAX_COL))
 			this.bottom = index + MAX_COL;
-		if(index > 0)
+		if((index % MAX_COL) > 0)
 			this.left = index - 1;
-		if(index < (MAX_ROW*MAX_COL - 1))
+		if(((index + 1) % MAX_COL) > 0)
 			this.right = index + 1;
 	}
 	

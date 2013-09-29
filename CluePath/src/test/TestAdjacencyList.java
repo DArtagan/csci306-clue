@@ -12,11 +12,10 @@ import clue.Cell;
 public class TestAdjacencyList {
 	Cell zero, fiveTwentyEight, twoNinetyNine, fourThirtySix, twoFiftyFour, oneFiftyNine;
 	
-	@SuppressWarnings("unused")
 	@Before
 	public void setUp() {
 		zero = new Cell(0);
-		fiveTwentyEight = new Cell(523);
+		fiveTwentyEight = new Cell(528);
 		twoNinetyNine = new Cell(299);
 		fourThirtySix = new Cell(436);
 		twoFiftyFour = new Cell(254);
