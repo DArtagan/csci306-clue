@@ -88,25 +88,27 @@ public class TestAdjacencyList {
 	}
 	
 	@Test
-	public void testStartTargets1() {
-		assert(twoFiftyFour.startTargets(254, 2).contains(208));
-		assert(twoFiftyFour.startTargets(254, 2).contains(232));
-		assert(twoFiftyFour.startTargets(254, 2).contains(256));
-		assert(twoFiftyFour.startTargets(254, 2).contains(278));
-		assert(twoFiftyFour.startTargets(254, 2).contains(300));
-		assert(twoFiftyFour.startTargets(254, 2).contains(276));
-		assert(twoFiftyFour.startTargets(254, 2).contains(230));
-		assertEquals(7, twoFiftyFour.startTargets(254, 2).size());
+	public void testCalcTargets1() {
+		LinkedList<Integer> list = null;
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(208));
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(232));
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(256));
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(278));
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(300));
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(276));
+		assert(twoFiftyFour.calcTargets(254, 2, list).contains(230));
+		assertEquals(7, twoFiftyFour.calcTargets(254, 2, list).size());
 	}
 
 	@Test
-	public void testStartTargets2() {
-		assert(zero.startTargets(0, 3).contains(3));
-		assert(zero.startTargets(0, 3).contains(25));
-		assert(zero.startTargets(0, 3).contains(47));
-		assert(zero.startTargets(0, 3).contains(69));
-		assert(zero.startTargets(0, 3).contains(23));
-		assert(zero.startTargets(0, 3).contains(1));
-		assertEquals(6, zero.startTargets(0, 3).size());
+	public void testCalcTargets2() {
+		LinkedList<Integer> list = null;
+		assert(zero.calcTargets(0, 3, list).contains(3));
+		assert(zero.calcTargets(0, 3, list).contains(25));
+		assert(zero.calcTargets(0, 3, list).contains(47));
+		assert(zero.calcTargets(0, 3, list).contains(69));
+		assert(zero.calcTargets(0, 3, list).contains(23));
+		assert(zero.calcTargets(0, 3, list).contains(1));
+		assertEquals(6, zero.calcTargets(0, 3, list).size());
 	}
 }

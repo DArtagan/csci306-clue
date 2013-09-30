@@ -45,24 +45,24 @@ public class Cell {
 
 	public LinkedList<Integer> startTargets(int start, int steps) {
 		LinkedList<Integer> stepList = new LinkedList<Integer>();
-		stepList.add(calcTargets(start, steps, stepList));
+		stepList.addAll(calcTargets(start, steps, stepList));
 		return stepList;
 	}
 	
-	public Integer calcTargets(int start, int steps, LinkedList<Integer> list) {
+	public LinkedList<Integer> calcTargets(int start, int steps, LinkedList<Integer> list) {
 		if(steps == 0) {
-			
+			return list;
 		} else {
-			list.add(calcTargets(Cell(start).top, steps));
-			list.add(calcTargets(Cell(start).right, steps));
-			list.add(calcTargets(Cell(start).bottom, steps));
-			list.add(calcTargets(Cell(start).left, steps));
-			return stepList;
+			list.addAll(calcTargets((new Cell(start)).top, steps, list));
+			list.addAll(calcTargets((new Cell(start)).right, steps, list));
+			list.addAll(calcTargets((new Cell(start)).bottom, steps, list));
+			list.addAll(calcTargets((new Cell(start)).left, steps, list));
+			return list;
 		}
 	}
 
 	public int calcIndex(int row, int col) {
-		return 0;
+		return (row * MAX_ROW) + col;
 	}
 	
 	public Set<Integer> getTargets() {
