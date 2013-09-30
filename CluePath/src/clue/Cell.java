@@ -14,12 +14,12 @@ public class Cell {
 	int MAX_ROW = 23;	// One beyond the board row size
 	int MAX_COL = 23;	// One beyond the board col size
 	
-	// Variables
-	private Integer index = null;
-	private Integer top = null;		// Setting these as Integer so 
-	private Integer right = null;	// that they can be null.
-	private Integer bottom = null;
-	private Integer left = null;
+	// Variables - initialize to impossible values
+	private int index = -1;
+	private int top = -1;
+	private int right = -1;
+	private int bottom = -1;
+	private int left = -1;
 	
 	// Constructors
 	public Cell(int i) {
@@ -49,14 +49,25 @@ public class Cell {
 		return stepList;
 	}
 	
-	public LinkedList<Integer> calcTargets(int start, int steps, LinkedList<Integer> list) {
+	public LinkedList<Integer> calcTargets(int start, int steps) {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		if(this.top != -1) list.addAll(calcTargets((new Cell(start)).top, steps, list));
+		if(this.right != -1) list.addAll(calcTargets((new Cell(start)).right, steps, list));
+		if(this.bottom != -1) list.addAll(calcTargets((new Cell(start)).bottom, steps, list));
+		if(this.left != -1) list.addAll(calcTargets((new Cell(start)).left, steps, list));
+		return list;
+	}
+	
+	private LinkedList<Integer> calcTargets(int start, int steps, LinkedList<Integer> list) {
+		System.out.println(steps);
 		if(steps == 0) {
-			return list;
+			return null;
 		} else {
-			list.addAll(calcTargets((new Cell(start)).top, steps, list));
-			list.addAll(calcTargets((new Cell(start)).right, steps, list));
-			list.addAll(calcTargets((new Cell(start)).bottom, steps, list));
-			list.addAll(calcTargets((new Cell(start)).left, steps, list));
+			--steps;
+			if(this.top != -1) list.addAll(calcTargets((new Cell(start)).top, steps, list));
+			if(this.right != -1) list.addAll(calcTargets((new Cell(start)).right, steps, list));
+			if(this.bottom != -1) list.addAll(calcTargets((new Cell(start)).bottom, steps, list));
+			if(this.left != -1) list.addAll(calcTargets((new Cell(start)).left, steps, list));
 			return list;
 		}
 	}
@@ -71,10 +82,10 @@ public class Cell {
 	
 	public LinkedList<Integer> getAdjList() {
 		LinkedList<Integer> adjList = new LinkedList<Integer>();
-		if(this.top != null) adjList.add(this.top);
-		if(this.right != null) adjList.add(this.right);
-		if(this.bottom != null) adjList.add(this.bottom);
-		if(this.left != null) adjList.add(this.left);
+		if(this.top != -1) adjList.add(this.top);
+		if(this.right != -1) adjList.add(this.right);
+		if(this.bottom != -1) adjList.add(this.bottom);
+		if(this.left != -1) adjList.add(this.left);
 		return adjList;
 	}
 }

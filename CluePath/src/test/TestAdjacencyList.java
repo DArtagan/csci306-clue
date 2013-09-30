@@ -89,15 +89,17 @@ public class TestAdjacencyList {
 	
 	@Test
 	public void testCalcTargets1() {
-		LinkedList<Integer> list = null;
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(208));
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(232));
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(256));
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(278));
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(300));
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(276));
-		assert(twoFiftyFour.calcTargets(254, 2, list).contains(230));
-		assertEquals(7, twoFiftyFour.calcTargets(254, 2, list).size());
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		list = twoFiftyFour.calcTargets(254, 2);
+		assert(list.contains(208));
+		assert(list.contains(232));
+		assert(list.contains(256));
+		assert(list.contains(278));
+		assert(list.contains(300));
+		assert(list.contains(276));
+		assert(list.contains(230));
+		System.out.println(list);
+		assertEquals(7, list.size());
 	}
 
 	@Test
