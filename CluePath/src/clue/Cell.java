@@ -6,6 +6,9 @@
 
 package clue;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -15,12 +18,12 @@ public class Cell {
 	int MAX_COL = 23;	// One beyond the board col size
 	
 	// Variables - initialize to impossible values
-	private int index = -1;
-	private int top = -1;
-	private int right = -1;
-	private int bottom = -1;
-	private int left = -1;
-	private boolean visited = false;
+	private Integer index = null;
+	private Integer top = null;
+	private Integer right = null;
+	private Integer bottom = null;
+	private Integer left = null;
+	private HashSet<Integer> targetList;
 	
 	// Constructors
 	public Cell(int i) {
@@ -61,39 +64,28 @@ public class Cell {
 	}
 
 	public LinkedList<Integer> startTargets(int start, int steps) {
-		LinkedList<Integer> stepList = new LinkedList<Integer>();
-		stepList.addAll(calcTargets(start, steps, stepList));
-		return stepList;
+		this.targetList = new HashSet<Integer>();
+		steps = steps + 1;
+		//int[] list = calcTargets(start, steps);
+		this.targetList = calcTargets(start, steps, this.targetList);
+		//list = list.split(" ");
+		return new LinkedList<Integer>(targetList);
 	}
 	
-	public LinkedList<Integer> calcTargets(int start, int steps) {
-		LinkedList<Integer> list = new LinkedList<Integer>();
+	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list) {
+	//private String calcTargets(int start, int steps, String list) {
+		steps = steps - 1;
 		Cell cell = new Cell(start);
-		System.out.printf("top=%d, left=%d, right=%d, bottom=%d\n", cell.top, cell.left, cell.right, cell.bottom);
-		if(cell.top != -1) list.addAll(calcTargets(cell.top, steps, start, list));
-		if(cell.right != -1) list.addAll(calcTargets(cell.right, steps, start, list));
-		if(cell.bottom != -1) list.addAll(calcTargets(cell.bottom, steps, start, list));
-		if(cell.left != -1) list.addAll(calcTargets(cell.left, steps, start, list));
-		return list;
-	}
-	
-	private LinkedList<Integer> calcTargets(int start, int steps, int lastIndex, LinkedList<Integer> list) {
-		System.out.printf("%d steps, start=%d, list=%s\n", steps, start, list);
 		if(steps == 0) {
 			list.add(start);
-			return list;
 		} else {
-			--steps;
-			Cell cell = new Cell(start);
-			System.out.printf("top=%d, left=%d, right=%d, bottom=%d\n", cell.top, cell.left, cell.right, cell.bottom);
-			if(cell.top != -1 && cell.top != lastIndex)  {
-				System.out.printf("adding %d with %d steps\n", cell.top, steps); list.addAll(calcTargets(cell.top, steps, start, list));
-			}
-			if(cell.right != -1 && cell.top != lastIndex) list.addAll(calcTargets(cell.right, steps, start, list));
-			if(cell.bottom != -1 && cell.top != lastIndex) list.addAll(calcTargets(cell.bottom, steps, start, list));
-			if(cell.left != -1 && cell.top != lastIndex) list.addAll(calcTargets(cell.left, steps, start, list));
-			return list;
+			if(cell.top != null) list = calcTargets(cell.top, steps, list);
+			if(cell.right != null) list = calcTargets(cell.right, steps, list);
+			if(cell.bottom != null) list = calcTargets(cell.bottom, steps, list);
+			if(cell.left != null) list = calcTargets(cell.left, steps, list);
 		}
+		
+		return list;
 	}
 
 	public int calcIndex(int row, int col) {
@@ -106,10 +98,17 @@ public class Cell {
 	
 	public LinkedList<Integer> getAdjList() {
 		LinkedList<Integer> adjList = new LinkedList<Integer>();
-		if(this.top != -1) adjList.add(this.top);
-		if(this.right != -1) adjList.add(this.right);
-		if(this.bottom != -1) adjList.add(this.bottom);
-		if(this.left != -1) adjList.add(this.left);
+		if(this.top != null) adjList.add(this.top);
+		if(this.right != null) adjList.add(this.right);
+		if(this.bottom != null) adjList.add(this.bottom);
+		if(this.left != null) adjList.add(this.left);
 		return adjList;
+	}
+	
+	public static void main(String[] args) {
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		Cell twoFiftyFour = new Cell(0);
+		list = twoFiftyFour.startTargets(0, 3);
+		System.out.println(list);
 	}
 }

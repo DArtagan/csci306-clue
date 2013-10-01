@@ -90,8 +90,9 @@ public class TestAdjacencyList {
 	}
 	
 	@Test
-	public void testCalcTargets1() {
-		list = twoFiftyFour.calcTargets(254, 2);
+	public void testStartTargets1() {
+		list = twoFiftyFour.startTargets(254, 2);
+		//System.out.println(list);
 		assert(list.contains(208));
 		assert(list.contains(232));
 		assert(list.contains(256));
@@ -99,13 +100,14 @@ public class TestAdjacencyList {
 		assert(list.contains(300));
 		assert(list.contains(276));
 		assert(list.contains(230));
-		System.out.println(list);
-		assertEquals(7, list.size());
+		assert(list.contains(254));
+		//System.out.println(list);
+		assertEquals(8, list.size());
 	}
 
 	@Test
-	public void testCalcTargets2() {
-		list = zero.calcTargets(0, 3);
+	public void testStartTargets2() {
+		list = zero.startTargets(0, 3);
 		assert(list.contains(3));
 		assert(list.contains(25));
 		assert(list.contains(47));
