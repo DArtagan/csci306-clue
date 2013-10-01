@@ -36,17 +36,12 @@ public class Cell {
 			this.right = this.index + 1;
 	}
 
-	// Methods
-	public void calcAdjacencies() {
-		
-	}
-
-	public LinkedList<Integer> startTargets(int start, int steps) {
+	public Set<Integer> getTargets(int steps) {
 		this.targetList = new HashSet<Integer>();
 		steps = steps + 1;
-		this.targetList = calcTargets(start, steps, this.targetList);
-		this.targetList.remove(start);
-		return new LinkedList<Integer>(targetList);
+		this.targetList = calcTargets(this.index, steps, this.targetList);
+		this.targetList.remove(this.index);
+		return this.targetList;
 	}
 	
 	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list) {
@@ -68,10 +63,6 @@ public class Cell {
 		return (row * MAX_ROW) + col;
 	}
 	
-	public Set<Integer> getTargets() {
-		return null;
-	}
-	
 	public LinkedList<Integer> getAdjList() {
 		LinkedList<Integer> adjList = new LinkedList<Integer>();
 		if(this.top != null) adjList.add(this.top);
@@ -82,9 +73,7 @@ public class Cell {
 	}
 	
 	public static void main(String[] args) {
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		Cell twoFiftyFour = new Cell(0);
-		list = twoFiftyFour.startTargets(0, 4);
-		System.out.println(list);
+		Cell zero = new Cell(0);
+		System.out.println(zero.getTargets(4));
 	}
 }

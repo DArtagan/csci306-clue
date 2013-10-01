@@ -2,7 +2,9 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +13,7 @@ import clue.Cell;
 
 public class TestAdjacencyList {
 	Cell zero, fiveTwentyEight, twoNinetyNine, fourThirtySix, twoFiftyFour, oneFiftyNine;
-	LinkedList<Integer> list = new LinkedList<Integer>();
+	Set<Integer> list;
 	
 	@Before
 	public void setUp() {
@@ -21,7 +23,7 @@ public class TestAdjacencyList {
 		fourThirtySix = new Cell(436);
 		twoFiftyFour = new Cell(254);
 		oneFiftyNine = new Cell(159);
-		LinkedList<Integer> list = new LinkedList<Integer>();
+		Set<Integer> list = new HashSet<Integer>();
 	}
 
 	@Test
@@ -80,18 +82,23 @@ public class TestAdjacencyList {
 	}
 
 	@Test
-	public void testCalcIndex1() {
+	public void testCalcIndex528() {
 		assertEquals(528, fiveTwentyEight.calcIndex(22, 22));
 	}
 
 	@Test
-	public void testCalcIndex2() {
+	public void testCalcIndex254() {
 		assertEquals(254, twoFiftyFour.calcIndex(11, 1));
 	}
 	
 	@Test
+	public void testCalcIndex0() {
+		assertEquals(0, zero.calcIndex(0, 0));
+	}
+	
+	@Test
 	public void testStartTargets1() {
-		list = twoFiftyFour.startTargets(254, 2);
+		list = twoFiftyFour.getTargets(2);
 		assert(list.contains(208));
 		assert(list.contains(232));
 		assert(list.contains(256));
@@ -99,13 +106,12 @@ public class TestAdjacencyList {
 		assert(list.contains(300));
 		assert(list.contains(276));
 		assert(list.contains(230));
-		assert(list.contains(254));
-		assertEquals(8, list.size());
+		assertEquals(7, list.size());
 	}
 
 	@Test
 	public void testStartTargets2() {
-		list = zero.startTargets(0, 3);
+		list = zero.getTargets(3);
 		assert(list.contains(3));
 		assert(list.contains(25));
 		assert(list.contains(47));
