@@ -58,10 +58,6 @@ public class Cell {
 		
 		return list;
 	}
-
-	public int calcIndex(int row, int col) {
-		return (row * MAX_ROW) + col;
-	}
 	
 	public LinkedList<Integer> getAdjList() {
 		LinkedList<Integer> adjList = new LinkedList<Integer>();
@@ -70,6 +66,14 @@ public class Cell {
 		if(this.bottom != null) adjList.add(this.bottom);
 		if(this.left != null) adjList.add(this.left);
 		return adjList;
+	}
+
+	public int calcIndex(int row, int col) {
+		return (row * MAX_ROW) + col;
+	}
+	
+	public int getIndex() {
+		return this.index;
 	}
 	
 	public static void main(String[] args) {

@@ -84,16 +84,19 @@ public class TestAdjacencyList {
 	@Test
 	public void testCalcIndex528() {
 		assertEquals(528, fiveTwentyEight.calcIndex(22, 22));
+		assertEquals(fiveTwentyEight.getIndex(), fiveTwentyEight.calcIndex(22, 22));
 	}
 
 	@Test
 	public void testCalcIndex254() {
 		assertEquals(254, twoFiftyFour.calcIndex(11, 1));
+		assertEquals(twoFiftyFour.getIndex(), twoFiftyFour.calcIndex(11, 1));
 	}
 	
 	@Test
 	public void testCalcIndex0() {
 		assertEquals(0, zero.calcIndex(0, 0));
+		assertEquals(zero.getIndex(), zero.calcIndex(0, 0));
 	}
 	
 	@Test
