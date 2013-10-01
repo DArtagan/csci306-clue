@@ -20,6 +20,7 @@ public class Cell {
 	private int right = -1;
 	private int bottom = -1;
 	private int left = -1;
+	private boolean visited = false;
 	
 	// Constructors
 	public Cell(int i) {
@@ -38,6 +39,22 @@ public class Cell {
 		
 	}
 	
+	public int getTop() {
+		return top;
+	}
+
+	public int getRight() {
+		return right;
+	}
+
+	public int getBottom() {
+		return bottom;
+	}
+
+	public int getLeft() {
+		return left;
+	}
+
 	// Methods
 	public void calcAdjacencies() {
 		
@@ -51,23 +68,30 @@ public class Cell {
 	
 	public LinkedList<Integer> calcTargets(int start, int steps) {
 		LinkedList<Integer> list = new LinkedList<Integer>();
-		if(this.top != -1) list.addAll(calcTargets((new Cell(start)).top, steps, list));
-		if(this.right != -1) list.addAll(calcTargets((new Cell(start)).right, steps, list));
-		if(this.bottom != -1) list.addAll(calcTargets((new Cell(start)).bottom, steps, list));
-		if(this.left != -1) list.addAll(calcTargets((new Cell(start)).left, steps, list));
+		Cell cell = new Cell(start);
+		System.out.printf("top=%d, left=%d, right=%d, bottom=%d\n", cell.top, cell.left, cell.right, cell.bottom);
+		if(cell.top != -1) list.addAll(calcTargets(cell.top, steps, start, list));
+		if(cell.right != -1) list.addAll(calcTargets(cell.right, steps, start, list));
+		if(cell.bottom != -1) list.addAll(calcTargets(cell.bottom, steps, start, list));
+		if(cell.left != -1) list.addAll(calcTargets(cell.left, steps, start, list));
 		return list;
 	}
 	
-	private LinkedList<Integer> calcTargets(int start, int steps, LinkedList<Integer> list) {
-		System.out.println(steps);
+	private LinkedList<Integer> calcTargets(int start, int steps, int lastIndex, LinkedList<Integer> list) {
+		System.out.printf("%d steps, start=%d, list=%s\n", steps, start, list);
 		if(steps == 0) {
-			return null;
+			list.add(start);
+			return list;
 		} else {
 			--steps;
-			if(this.top != -1) list.addAll(calcTargets((new Cell(start)).top, steps, list));
-			if(this.right != -1) list.addAll(calcTargets((new Cell(start)).right, steps, list));
-			if(this.bottom != -1) list.addAll(calcTargets((new Cell(start)).bottom, steps, list));
-			if(this.left != -1) list.addAll(calcTargets((new Cell(start)).left, steps, list));
+			Cell cell = new Cell(start);
+			System.out.printf("top=%d, left=%d, right=%d, bottom=%d\n", cell.top, cell.left, cell.right, cell.bottom);
+			if(cell.top != -1 && cell.top != lastIndex)  {
+				System.out.printf("adding %d with %d steps\n", cell.top, steps); list.addAll(calcTargets(cell.top, steps, start, list));
+			}
+			if(cell.right != -1 && cell.top != lastIndex) list.addAll(calcTargets(cell.right, steps, start, list));
+			if(cell.bottom != -1 && cell.top != lastIndex) list.addAll(calcTargets(cell.bottom, steps, start, list));
+			if(cell.left != -1 && cell.top != lastIndex) list.addAll(calcTargets(cell.left, steps, start, list));
 			return list;
 		}
 	}

@@ -11,6 +11,7 @@ import clue.Cell;
 
 public class TestAdjacencyList {
 	Cell zero, fiveTwentyEight, twoNinetyNine, fourThirtySix, twoFiftyFour, oneFiftyNine;
+	LinkedList<Integer> list = new LinkedList<Integer>();
 	
 	@Before
 	public void setUp() {
@@ -20,6 +21,7 @@ public class TestAdjacencyList {
 		fourThirtySix = new Cell(436);
 		twoFiftyFour = new Cell(254);
 		oneFiftyNine = new Cell(159);
+		LinkedList<Integer> list = new LinkedList<Integer>();
 	}
 
 	@Test
@@ -89,7 +91,6 @@ public class TestAdjacencyList {
 	
 	@Test
 	public void testCalcTargets1() {
-		LinkedList<Integer> list = new LinkedList<Integer>();
 		list = twoFiftyFour.calcTargets(254, 2);
 		assert(list.contains(208));
 		assert(list.contains(232));
@@ -104,13 +105,13 @@ public class TestAdjacencyList {
 
 	@Test
 	public void testCalcTargets2() {
-		LinkedList<Integer> list = null;
-		assert(zero.calcTargets(0, 3, list).contains(3));
-		assert(zero.calcTargets(0, 3, list).contains(25));
-		assert(zero.calcTargets(0, 3, list).contains(47));
-		assert(zero.calcTargets(0, 3, list).contains(69));
-		assert(zero.calcTargets(0, 3, list).contains(23));
-		assert(zero.calcTargets(0, 3, list).contains(1));
-		assertEquals(6, zero.calcTargets(0, 3, list).size());
+		list = zero.calcTargets(0, 3);
+		assert(list.contains(3));
+		assert(list.contains(25));
+		assert(list.contains(47));
+		assert(list.contains(69));
+		assert(list.contains(23));
+		assert(list.contains(1));
+		assertEquals(6, list.size());
 	}
 }
