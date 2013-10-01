@@ -1,6 +1,7 @@
 package clue;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -16,12 +17,17 @@ public class IntBoard {
 	
 	// Constructors
 	public IntBoard() {
+		adjMap = new HashMap<Integer, LinkedList<Integer>>(); 
 		visited = new boolean[MAX_COL * MAX_ROW];
+		calcAdjacencies();
 	}
 
 	// Methods
 	public void calcAdjacencies() {
-
+		for (int i = 0; i < (MAX_ROW * MAX_COL); ++i) {
+			LinkedList<Integer> adjList = getAdjList(i);
+			adjMap.put(i, adjList);
+		}
 	}
 
 	public void calcTargets(int row, int col, int numSteps) {
