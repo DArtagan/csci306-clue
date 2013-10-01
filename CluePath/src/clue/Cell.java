@@ -37,26 +37,6 @@ public class Cell {
 		if(((this.index + 1) % MAX_COL) > 0)
 			this.right = this.index + 1;
 	}
-	
-	public Cell(int row, int col) {
-		
-	}
-	
-	public int getTop() {
-		return top;
-	}
-
-	public int getRight() {
-		return right;
-	}
-
-	public int getBottom() {
-		return bottom;
-	}
-
-	public int getLeft() {
-		return left;
-	}
 
 	// Methods
 	public void calcAdjacencies() {
@@ -108,7 +88,7 @@ public class Cell {
 	public static void main(String[] args) {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		Cell twoFiftyFour = new Cell(0);
-		list = twoFiftyFour.startTargets(0, 3);
+		list = twoFiftyFour.startTargets(0, 4);
 		System.out.println(list);
 	}
 }
