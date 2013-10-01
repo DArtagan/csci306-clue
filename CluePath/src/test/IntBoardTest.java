@@ -93,6 +93,7 @@ public class IntBoardTest {
 	public void testCalcIndex_1() {
 		assertEquals(-1, board.calcIndex(22, -2));
 		assertEquals(-1, board.calcIndex(-1, 3));
+		assertEquals(-1, board.calcIndex(23, 3));
 	}
 	
 	@Test
