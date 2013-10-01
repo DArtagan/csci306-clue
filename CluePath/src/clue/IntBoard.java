@@ -76,6 +76,8 @@ public class IntBoard {
 		
 	public int calcIndex(int row, int col) {
 		if (row < 0 || col < 0 || row > MAX_ROW - 1 || col > MAX_COL - 1) {
+			// At some point this should probably be changed to throw
+			// an exception, rather than returning a bad value.
 			return -1;
 		}
 		return (row * MAX_ROW) + col;
