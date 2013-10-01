@@ -76,13 +76,24 @@ public class IntBoardTest {
 	}
 
 	@Test
-	public void testCalcIndex1() {
+	public void testCalcIndex528() {
 		assertEquals(528, board.calcIndex(22, 22));
 	}
 
 	@Test
-	public void testCalcIndex2() {
+	public void testCalcIndex254() {
 		assertEquals(254, board.calcIndex(11, 1));
+	}
+	
+	@Test
+	public void testCalcIndex0() {
+		assertEquals(0, board.calcIndex(0, 0));
+	}
+	
+	@Test
+	public void testCalcIndex_1() {
+		assertEquals(-1, board.calcIndex(22, -2));
+		assertEquals(-1, board.calcIndex(-1, 3));
 	}
 	
 	@Test

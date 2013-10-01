@@ -1,9 +1,3 @@
-/* 
- * Note: We decided (and cleared with the professor) that we wanted to
- * implement our clue board as a collection of linked cells.
- * Thus, our class is titled "Cell" and not "IntBoard".
- */
-
 package clue;
 
 import java.util.LinkedList;
@@ -65,6 +59,9 @@ public class IntBoard {
 	}
 		
 	public int calcIndex(int row, int col) {
+		if (row < 0 || col < 0) {
+			return -1;
+		}
 		return (row * MAX_ROW) + col;
 	}
 }
