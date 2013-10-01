@@ -20,15 +20,7 @@ public class IntBoard {
 
 	// Methods
 	public void calcAdjacencies() {
-		/*this.index = i;
-		if((this.index - MAX_COL) >= 0)
-			this.top = this.index - MAX_COL;
-		if((this.index + MAX_COL) < (MAX_ROW*MAX_COL))
-			this.bottom = this.index + MAX_COL;
-		if((this.index % MAX_COL) > 0)
-			this.left = this.index - 1;
-		if(((this.index + 1) % MAX_COL) > 0)
-			this.right = this.index + 1;*/
+
 	}
 
 	public void startTargets(int row, int col, int numSteps) {
@@ -55,6 +47,15 @@ public class IntBoard {
 	}
 
 	public LinkedList<Integer> getAdjList(int cell) {
+		LinkedList<Integer> adjList = new LinkedList<Integer>();
+		if ((cell - MAX_COL) >= 0)
+			adjList.add(cell - MAX_COL);
+		if ((cell + MAX_COL) < (MAX_ROW*MAX_COL))
+			adjList.add(cell + MAX_COL);
+		if ((cell % MAX_COL) > 0)
+			adjList.add(cell - 1);
+		if (((cell + 1) % MAX_COL) > 0)
+			adjList.add(cell + 1);
 		return adjList;
 	}
 		
