@@ -2,6 +2,7 @@ package clue;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -14,11 +15,13 @@ public class IntBoard {
 	// Variables
 	private Map<Integer, LinkedList<Integer>> adjMap;
 	private boolean[] visited;
+	private Set<Integer> targets;
 	
 	// Constructors
 	public IntBoard() {
 		adjMap = new HashMap<Integer, LinkedList<Integer>>(); 
 		visited = new boolean[MAX_COL * MAX_ROW];
+		targets = new HashSet<Integer>();
 		calcAdjacencies();
 	}
 
@@ -32,28 +35,30 @@ public class IntBoard {
 
 	public void calcTargets(int row, int col, int numSteps) {
 		Arrays.fill(visited, false);
-		Set<Integer> targets;
 		visited[calcIndex(row, col)] = true;
 		calcTargets(calcIndex(row, col), numSteps);
 	}
 	
-	private LinkedList<Integer> calcTargets(int thisCell, int numSteps) {
-		if(steps == 0) {
-			list.add(start);
-			return list;
-		} else {
-			--steps;
-			for (int cellIndex : list) {
-				if(cellIndex != -1) { 
-					list.addAll(calcTargets(cell.right, steps, start, list));
-				}
+	private void calcTargets(int thisCell, int numSteps) {
+		LinkedList<Integer> adjacentCells = new LinkedList<Integer>();
+		for (int adjCell : adjMap.get(thisCell)) {
+			if (!visited[adjCell]) {
+				adjacentCells.add(adjCell);
 			}
-			return list;
+		}
+		for (int adjCell : adjacentCells) {
+			visited[adjCell] = true;
+			if (numSteps == 1) {
+				targets.add(adjCell);
+			} else {
+				calcTargets(adjCell, numSteps-1);
+			}
+			visited[adjCell] = false;
 		}
 	}
 	
 	public Set<Integer> getTargets() {
-		return null;
+		return targets;
 	}
 
 	public LinkedList<Integer> getAdjList(int cell) {
