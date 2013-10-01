@@ -18,7 +18,6 @@ public class IntBoardTest {
 	@Before
 	public void setUp() {
 		board = new IntBoard();
-		list = new LinkedList<Integer>();
 	}
 
 	@Test
