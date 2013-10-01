@@ -46,14 +46,11 @@ public class Cell {
 	public LinkedList<Integer> startTargets(int start, int steps) {
 		this.targetList = new HashSet<Integer>();
 		steps = steps + 1;
-		//int[] list = calcTargets(start, steps);
 		this.targetList = calcTargets(start, steps, this.targetList);
-		//list = list.split(" ");
 		return new LinkedList<Integer>(targetList);
 	}
 	
 	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list) {
-	//private String calcTargets(int start, int steps, String list) {
 		steps = steps - 1;
 		Cell cell = new Cell(start);
 		if(steps == 0) {

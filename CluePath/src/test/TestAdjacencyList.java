@@ -92,7 +92,6 @@ public class TestAdjacencyList {
 	@Test
 	public void testStartTargets1() {
 		list = twoFiftyFour.startTargets(254, 2);
-		//System.out.println(list);
 		assert(list.contains(208));
 		assert(list.contains(232));
 		assert(list.contains(256));
@@ -101,7 +100,6 @@ public class TestAdjacencyList {
 		assert(list.contains(276));
 		assert(list.contains(230));
 		assert(list.contains(254));
-		//System.out.println(list);
 		assertEquals(8, list.size());
 	}
 
