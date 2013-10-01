@@ -68,6 +68,7 @@ public class Cell {
 		steps = steps + 1;
 		//int[] list = calcTargets(start, steps);
 		this.targetList = calcTargets(start, steps, this.targetList);
+		this.targetList.remove(start);
 		//list = list.split(" ");
 		return new LinkedList<Integer>(targetList);
 	}
@@ -108,7 +109,7 @@ public class Cell {
 	public static void main(String[] args) {
 		LinkedList<Integer> list = new LinkedList<Integer>();
 		Cell twoFiftyFour = new Cell(0);
-		list = twoFiftyFour.startTargets(0, 3);
+		list = twoFiftyFour.startTargets(0, 4);
 		System.out.println(list);
 	}
 }
