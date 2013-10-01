@@ -1,5 +1,6 @@
 package clue;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +16,8 @@ public class IntBoard {
 	
 	// Constructors
 	public IntBoard() {
-		
+		visited = new boolean[MAX_COL * MAX_ROW];
+		Arrays.fill(visited, false);
 	}
 
 	// Methods
