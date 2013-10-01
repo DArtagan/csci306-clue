@@ -98,7 +98,7 @@ public class IntBoardTest {
 	
 	@Test
 	public void testTargets254_2() {
-		board.startTargets(11, 1, 2);
+		board.calcTargets(11, 1, 2);
 		targets = board.getTargets();
 		assert(targets.contains(208));
 		assert(targets.contains(232));
@@ -112,7 +112,7 @@ public class IntBoardTest {
 
 	@Test
 	public void testTargets0_3() {
-		board.startTargets(0, 0, 3);
+		board.calcTargets(0, 0, 3);
 		targets = board.getTargets();
 		assert(targets.contains(3));
 		assert(targets.contains(25));

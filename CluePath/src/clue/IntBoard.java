@@ -17,7 +17,6 @@ public class IntBoard {
 	// Constructors
 	public IntBoard() {
 		visited = new boolean[MAX_COL * MAX_ROW];
-		Arrays.fill(visited, false);
 	}
 
 	// Methods
@@ -25,8 +24,11 @@ public class IntBoard {
 
 	}
 
-	public void startTargets(int row, int col, int numSteps) {
-
+	public void calcTargets(int row, int col, int numSteps) {
+		Arrays.fill(visited, false);
+		Set<Integer> targets;
+		visited[calcIndex(row, col)] = true;
+		calcTargets(calcIndex(row, col), numSteps);
 	}
 	
 	private LinkedList<Integer> calcTargets(int thisCell, int numSteps) {
