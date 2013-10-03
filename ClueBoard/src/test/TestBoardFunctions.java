@@ -7,6 +7,10 @@ import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
+import clue.BadConfigFormatException;
+import clue.Board;
+import clue.RoomCell;
+
 public class TestBoardFunctions {
 	Board board;
 	RoomCell room;
@@ -44,7 +48,7 @@ public class TestBoardFunctions {
 	@Test
 	public void testCorrectNumberOfRowsAndColumns() {
 		assertEquals(rows, board.getNumRows());
-		assertEquals(columns, board.getNumColumns());
+		assertEquals(columns, board.getNumCols());
 	}
 
 	@Test
@@ -73,13 +77,13 @@ public class TestBoardFunctions {
 	@Test
 	public void testRoomAssignment() {
 		char roomInitial = 'F';
-		assertEquals(roomInitial, board.getRoomCellAt(7, 5).getInitial());
+		assertEquals(roomInitial, board.getRoomCellAt(7, 5).getRoomInitial());
 		
 		roomInitial = 'S';
-		assertEquals(roomInitial, board.getRoomCellAt(12, 3).getInitial());
+		assertEquals(roomInitial, board.getRoomCellAt(12, 3).getRoomInitial());
 		
 		roomInitial = 'H';
-		assertEquals(roomInitial, board.getRoomCellAt(9, 20).getInitial());
+		assertEquals(roomInitial, board.getRoomCellAt(9, 20).getRoomInitial());
 	}
 
 	@Test
