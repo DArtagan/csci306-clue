@@ -5,15 +5,19 @@ public class RoomCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 	
-	public boolean isWalkway() {
-		return false;
-	}
-	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
 	
 	public char getRoomInitial() {
 		return roomInitial;
+	}
+	
+	public boolean isDoorway() {
+		return true;
+	}
+	
+	public boolean isRoom() {
+		return true;
 	}
 }
