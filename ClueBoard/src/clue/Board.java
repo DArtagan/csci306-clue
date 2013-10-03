@@ -17,7 +17,7 @@ public class Board {
 		return 0;
 	}
 	
-	public RoomCell GetRoomCellAt() {
+	public RoomCell getRoomCellAt(int row, int col) {
 		return null;
 	}
 
