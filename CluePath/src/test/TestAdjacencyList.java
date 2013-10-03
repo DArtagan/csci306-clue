@@ -2,7 +2,9 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,20 +13,22 @@ import clue.Cell;
 
 public class TestAdjacencyList {
 	Cell zero, fiveTwentyEight, twoNinetyNine, fourThirtySix, twoFiftyFour, oneFiftyNine;
+	Set<Integer> list;
 	
 	@Before
 	public void setUp() {
-		Cell zero = new Cell(0);
-		Cell fiveTwentyEight = new Cell(0);
-		Cell twoNinetyNine = new Cell(0);
-		Cell fourThirtySix = new Cell(0);
-		Cell twoFiftyFour = new Cell(0);
-		Cell oneFiftyNine = new Cell(0);
-		
+		zero = new Cell(0);
+		fiveTwentyEight = new Cell(528);
+		twoNinetyNine = new Cell(299);
+		fourThirtySix = new Cell(436);
+		twoFiftyFour = new Cell(254);
+		oneFiftyNine = new Cell(159);
+		Set<Integer> list = new HashSet<Integer>();
 	}
 
 	@Test
 	public void testAdjacencyListTopLeftCorner() {
+		Cell zero = new Cell(0);
 		LinkedList<Integer> list = zero.getAdjList();
 		assert(list.contains(1));
 		assert(list.contains(23));
@@ -78,35 +82,45 @@ public class TestAdjacencyList {
 	}
 
 	@Test
-	public void testCalcIndex1() {
+	public void testCalcIndex528() {
 		assertEquals(528, fiveTwentyEight.calcIndex(22, 22));
+		assertEquals(fiveTwentyEight.getIndex(), fiveTwentyEight.calcIndex(22, 22));
 	}
 
 	@Test
-	public void testCalcIndex2() {
+	public void testCalcIndex254() {
 		assertEquals(254, twoFiftyFour.calcIndex(11, 1));
+		assertEquals(twoFiftyFour.getIndex(), twoFiftyFour.calcIndex(11, 1));
+	}
+	
+	@Test
+	public void testCalcIndex0() {
+		assertEquals(0, zero.calcIndex(0, 0));
+		assertEquals(zero.getIndex(), zero.calcIndex(0, 0));
 	}
 	
 	@Test
 	public void testStartTargets1() {
-		assert(twoFiftyFour.startTargets(254, 2).contains(208));
-		assert(twoFiftyFour.startTargets(254, 2).contains(232));
-		assert(twoFiftyFour.startTargets(254, 2).contains(256));
-		assert(twoFiftyFour.startTargets(254, 2).contains(278));
-		assert(twoFiftyFour.startTargets(254, 2).contains(300));
-		assert(twoFiftyFour.startTargets(254, 2).contains(276));
-		assert(twoFiftyFour.startTargets(254, 2).contains(230));
-		assertEquals(7, twoFiftyFour.startTargets(254, 2).size());
+		list = twoFiftyFour.getTargets(2);
+		assert(list.contains(208));
+		assert(list.contains(232));
+		assert(list.contains(256));
+		assert(list.contains(278));
+		assert(list.contains(300));
+		assert(list.contains(276));
+		assert(list.contains(230));
+		assertEquals(7, list.size());
 	}
 
 	@Test
 	public void testStartTargets2() {
-		assert(zero.startTargets(0, 3).contains(3));
-		assert(zero.startTargets(0, 3).contains(25));
-		assert(zero.startTargets(0, 3).contains(47));
-		assert(zero.startTargets(0, 3).contains(69));
-		assert(zero.startTargets(0, 3).contains(23));
-		assert(zero.startTargets(0, 3).contains(1));
-		assertEquals(6, zero.startTargets(0, 3).size());
+		list = zero.getTargets(3);
+		assert(list.contains(3));
+		assert(list.contains(25));
+		assert(list.contains(47));
+		assert(list.contains(69));
+		assert(list.contains(23));
+		assert(list.contains(1));
+		assertEquals(6, list.size());
 	}
 }
