@@ -18,8 +18,9 @@ public class TestBoardFunctions {
 	int columns;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws FileNotFoundException {
 		board = new Board();
+		board.loadConfigFiles();
 		rows = 23;
 		columns = 23;
 	}
