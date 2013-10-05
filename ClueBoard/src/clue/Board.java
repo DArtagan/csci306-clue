@@ -8,26 +8,33 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Board {
-	// Constants
-	int MAX_ROW = 23;	// One beyond the board row size
-	int MAX_COL = 23;	// One beyond the board col size
-	
 	// Variables
 	private ArrayList<BoardCell> cells;
-	private int numRows;
-	private int numCols;
-	private String [] config;
-	private Map<Character, String> rooms = new HashMap<Character, String>();
+	protected static int numRows;
+	protected static int numCols;
+	protected static String [] config;
+	protected static Map<Character, String> rooms = new HashMap<Character, String>();
 	
 	// Methods
-	public void loadConfigFiles() throws FileNotFoundException {
+	public void loadConfigFiles() throws FileNotFoundException, BadConfigFormatException {
 		// Import Clue Board
 		FileReader reader1 = new FileReader("ClueBoard.csv");
 		Scanner in1 = new Scanner(reader1);
 		String configString = "";
+		int col_count = -1;
 		while(in1.hasNextLine()) {
-			configString += in1.nextLine();
+			String line = in1.nextLine();
+			configString += line + ",";
+			String[] parts = line.split(",");
+			if(col_count == -1) {
+				col_count = parts.length;
+			} else {
+				if(col_count != parts.length) throw new BadConfigFormatException("Line length mismatch");
+				else col_count = parts.length;
+			}
+			this.numRows += 1;
 		}
+		this.numCols = col_count;
 		this.config = configString.split(",");
 		
 		// Import Legend
@@ -41,11 +48,11 @@ public class Board {
 	}
 	
 	public int calcIndex(int row, int col) {
-		return 0;
+		return (row * Board.numCols) + col;
 	}
 	
 	public RoomCell getRoomCellAt(int row, int col) {
-		return null;
+		return new RoomCell(row, col);
 	}
 
 	public Map<Character, String> getRooms() {
@@ -60,7 +67,7 @@ public class Board {
 		return numCols;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BadConfigFormatException {
 		Board board = new Board();
 		try {
 			board.loadConfigFiles();
