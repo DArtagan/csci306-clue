@@ -5,6 +5,10 @@ public class RoomCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 	
+	public RoomCell() {
+		
+	}
+	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
 	}
