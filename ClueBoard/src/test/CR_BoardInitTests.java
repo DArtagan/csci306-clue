@@ -12,10 +12,10 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import clueGame.BadConfigFormatException;
-import clueGame.Board;
-import clueGame.BoardCell;
-import clueGame.RoomCell;
+import clue.BadConfigFormatException;
+import clue.Board;
+import clue.BoardCell;
+import clue.RoomCell;
 
 public class CR_BoardInitTests {
 	// I made this static because I only want to set it up one 
