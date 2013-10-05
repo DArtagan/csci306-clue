@@ -27,7 +27,7 @@ public class TestBoardFunctions {
 
 	@Test
 	public void testRoomsMapNumberOfRooms() {
-		int numRooms = 10;
+		int numRooms = 11;
 		assertEquals(numRooms, board.getRooms().size());
 	}
 
