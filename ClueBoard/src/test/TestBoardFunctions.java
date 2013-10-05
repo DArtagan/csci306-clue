@@ -20,7 +20,7 @@ public class TestBoardFunctions {
 	@Before
 	public void setUp() throws FileNotFoundException, BadConfigFormatException {
 		board = new Board();
-		board.loadConfigFiles();
+		board.loadConfigFiles("ClueBoard.csv", "legend.txt");
 		rows = 23;
 		columns = 23;
 	}
@@ -78,7 +78,7 @@ public class TestBoardFunctions {
 	@Test
 	public void testRoomAssignment() {
 		char roomInitial = 'F';
-		assertEquals(roomInitial, board.getRoomCellAt(7, 5).getRoomInitial());
+		assertEquals(roomInitial, board.getRoomCellAt(6, 5).getRoomInitial());
 		
 		roomInitial = 'S';
 		assertEquals(roomInitial, board.getRoomCellAt(12, 3).getRoomInitial());
@@ -97,6 +97,6 @@ public class TestBoardFunctions {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadConfigFormatException() throws BadConfigFormatException, FileNotFoundException {
 		// board has bad config files!
-		board.loadConfigFiles();
+		board.loadConfigFiles("CR_ClueLayoutBadColumns.csv", "legend.txt");
 	}
 }

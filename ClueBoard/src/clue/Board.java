@@ -10,18 +10,19 @@ import java.util.Scanner;
 public class Board {
 	// Variables
 	private ArrayList<BoardCell> cells;
-	protected static int numRows;
-	protected static int numCols;
+	protected static int numRows = 0;
+	protected static int numCols = 0;
 	protected static String [] config;
 	protected static Map<Character, String> rooms = new HashMap<Character, String>();
 	
 	// Methods
-	public void loadConfigFiles() throws FileNotFoundException, BadConfigFormatException {
+	public void loadConfigFiles(String board, String legend) throws FileNotFoundException, BadConfigFormatException {
 		// Import Clue Board
-		FileReader reader1 = new FileReader("ClueBoard.csv");
+		FileReader reader1 = new FileReader(board);
 		Scanner in1 = new Scanner(reader1);
 		String configString = "";
 		int col_count = -1;
+		int row_count = 0;
 		while(in1.hasNextLine()) {
 			String line = in1.nextLine();
 			configString += line + ",";
@@ -30,15 +31,15 @@ public class Board {
 				col_count = parts.length;
 			} else {
 				if(col_count != parts.length) throw new BadConfigFormatException("Line length mismatch");
-				else col_count = parts.length;
 			}
-			this.numRows += 1;
+			row_count += 1;
 		}
 		this.numCols = col_count;
+		this.numRows = row_count;
 		this.config = configString.split(",");
 		
 		// Import Legend
-		FileReader reader2 = new FileReader("legend.txt");
+		FileReader reader2 = new FileReader(legend);
 		Scanner in2 = new Scanner(reader2);
 		while(in2.hasNextLine()) {
 			String line = in2.nextLine();
@@ -70,7 +71,7 @@ public class Board {
 	public static void main(String[] args) throws BadConfigFormatException {
 		Board board = new Board();
 		try {
-			board.loadConfigFiles();
+			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
