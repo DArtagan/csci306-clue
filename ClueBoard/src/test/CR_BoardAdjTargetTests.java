@@ -1,5 +1,6 @@
 package test;
 
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -7,6 +8,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import clue.BadConfigFormatException;
 import clue.Board;
 import clue.BoardCell;
 
@@ -15,7 +17,13 @@ public class CR_BoardAdjTargetTests {
 	@BeforeClass
 	public static void setUp() {
 		board = new Board();
-		board.loadConfigFiles();
+		try {
+			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
 		board.calcAdjacencies();
 
 	}

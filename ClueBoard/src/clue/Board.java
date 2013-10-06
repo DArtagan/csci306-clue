@@ -4,8 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Board {
 	// Variables
@@ -82,5 +84,25 @@ public class Board {
 	public BoardCell getCellAt(int i) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public LinkedList<Integer> getAdjList(int calcIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Set<BoardCell> getTargets() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void calcTargets(int i, int j, int k) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void calcAdjacencies() {
+		// TODO Auto-generated method stub
+		
 	}
 }
