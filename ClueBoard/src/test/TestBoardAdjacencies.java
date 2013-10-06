@@ -13,6 +13,7 @@ import clue.Board;
 
 public class TestBoardAdjacencies {
 	private static Board board;
+	LinkedList<Integer> list;
 
 	@Before
 	public static void setUp() {
@@ -25,52 +26,59 @@ public class TestBoardAdjacencies {
 			e.printStackTrace();
 		}
 		board.calcAdjacencies();
-		
-		LinkedList<Integer> list;
 	}
 
+	// red
 	@Test
-	public static void testAdjacenciesInsideRooms() {
-		
+	public void testAdjacenciesInsideRooms() {
+		list = board.getAdjList(board.calcIndex(0, 0));
 	}
 
+	// purple
 	@Test
-	public static void testAdjacenciesRoomExits() {
-		
-	}
-
-	@Test
-	public static void testAdjacenciesThatIncludeDoorways() {
+	public void testAdjacenciesRoomExits() {
 		
 	}
 
+	// green
 	@Test
-	public static void testAdjacenciesWalkways() {
+	public void testAdjacenciesRoomEntrances() {
 		
 	}
 
+	// light purple
 	@Test
-	public static void testTargetsOneStep() {
+	public void testAdjacenciesWalkways() {
 		
 	}
 
+	// light blue
 	@Test
-	public static void testTargetsThreeSteps() {
+	public void testTargetsOneStep() {
 		
 	}
 
+	// light blue
 	@Test
-	public static void testTargetsSixSteps() {
+	public void testTargetsThreeSteps() {
 		
 	}
 
+	// light blue
 	@Test
-	public static void testTargetsIntoRoom() {
+	public void testTargetsSixSteps() {
 		
 	}
 
+	// light blue
 	@Test
-	public static void testRoomExits() {
+	public void testTargetsIntoRoom() {
+		
+	}
+
+	// light blue
+	@Test
+	public void testRoomExits() {
 		
 	}
 }
