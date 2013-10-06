@@ -19,6 +19,15 @@ public class Board {
 	
 	// Methods
 	public void loadConfigFiles(String board, String legend) throws FileNotFoundException, BadConfigFormatException {
+		// Import Legend
+		FileReader reader2 = new FileReader(legend);
+		Scanner in2 = new Scanner(reader2);
+		while(in2.hasNextLine()) {
+			String line = in2.nextLine();
+			String[] parts = line.split(", ");
+			this.rooms.put(parts[0].charAt(0), parts[1]);
+		}
+		
 		// Import Clue Board
 		FileReader reader1 = new FileReader(board);
 		Scanner in1 = new Scanner(reader1);
@@ -40,13 +49,10 @@ public class Board {
 		this.numRows = row_count;
 		this.config = configString.split(",");
 		
-		// Import Legend
-		FileReader reader2 = new FileReader(legend);
-		Scanner in2 = new Scanner(reader2);
-		while(in2.hasNextLine()) {
-			String line = in2.nextLine();
-			String[] parts = line.split(", ");
-			this.rooms.put(parts[0].charAt(0), parts[1]);
+		for(String i: config) {
+			char key = i.charAt(0);
+			String value = rooms.get(key);
+			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
 		}
 	}
 	
@@ -82,8 +88,8 @@ public class Board {
 	}
 
 	public BoardCell getCellAt(int i) {
-		// TODO Auto-generated method stub
-		return null;
+		if(config[i] == "W") return new WalkwayCell(i);
+		else return new RoomCell(i);
 	}
 
 	public LinkedList<Integer> getAdjList(int calcIndex) {
