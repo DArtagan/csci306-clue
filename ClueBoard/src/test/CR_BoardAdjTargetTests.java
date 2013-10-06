@@ -18,7 +18,7 @@ public class CR_BoardAdjTargetTests {
 	public static void setUp() {
 		board = new Board();
 		try {
-			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
+			board.loadConfigFiles("CR_ClueLayout.csv", "CR_ClueLegend.txt");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (BadConfigFormatException e) {
