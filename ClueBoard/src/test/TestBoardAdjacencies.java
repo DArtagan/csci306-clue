@@ -141,13 +141,55 @@ public class TestBoardAdjacencies {
 	// light blue
 	@Test
 	public void testTargetsOneStep() {
+		board.calcTargets(4, 10, 1);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(3, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(5, 10))));
+		assertEquals(2, targets.size());
 		
+		board.calcTargets(14, 13, 1);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 13))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 14))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 12))));
+		assertEquals(3, targets.size());
 	}
 
 	// light blue
 	@Test
 	public void testTargetsTwoSteps() {
+		board.calcTargets(4, 10, 2);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(2, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(5, 11))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 10))));
+		assertEquals(2, targets.size());
 		
+		board.calcTargets(14, 13, 2);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 11))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 12))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 14))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 14))));
+		assertEquals(4, targets.size());
+
+		board.calcTargets(8, 9, 2);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 7))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 8))));
+		assertEquals(6, targets.size());
+		
+		board.calcTargets(15, 4, 2);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 2))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 4))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 5))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 3))));
+		assertEquals(4, targets.size());
 	}
 
 	// light blue
@@ -159,18 +201,6 @@ public class TestBoardAdjacencies {
 	// light blue
 	@Test
 	public void testTargetsFourSteps() {
-		
-	}
-
-	// light blue
-	@Test
-	public void testTargetsFiveSteps() {
-		
-	}
-
-	// light blue
-	@Test
-	public void testTargetsSixSteps() {
 		
 	}
 
