@@ -336,7 +336,7 @@ public class TestBoardAdjacencies {
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 2))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 1))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 3))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 2))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 2)))); // Door
 		assertEquals(9, targets.size());
 	}
 
