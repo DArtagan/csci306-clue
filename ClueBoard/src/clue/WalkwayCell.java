@@ -1,6 +1,6 @@
 package clue;
 
-public class WalkwayCell {
+public class WalkwayCell extends BoardCell {
 	
 	public boolean isWalkway() {
 		return true;

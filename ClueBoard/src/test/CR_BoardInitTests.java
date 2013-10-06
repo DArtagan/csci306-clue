@@ -27,8 +27,14 @@ public class CR_BoardInitTests {
 	
 	@BeforeClass
 	public static void setUp() {
-		board = new Board("ClueLayout.csv", "ClueLegend.txt");
-		board.loadConfigFiles();
+		board = new Board();
+		try {
+			board.loadConfigFiles("CR_ClueLayout.csv", "CR_ClueLegend.txt");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+		}
 	}
 	@Test
 	public void testRooms() {
@@ -48,7 +54,7 @@ public class CR_BoardInitTests {
 	public void testBoardDimensions() {
 		// Ensure we have the proper number of rows and columns
 		assertEquals(NUM_ROWS, board.getNumRows());
-		assertEquals(NUM_COLUMNS, board.getNumColumns());		
+		assertEquals(NUM_COLUMNS, board.getNumCols());		
 	}
 	
 	// Test a doorway in each direction, plus two cells that are not
@@ -83,7 +89,7 @@ public class CR_BoardInitTests {
 	public void testNumberOfDoorways() 
 	{
 		int numDoors = 0;
-		int totalCells = board.getNumColumns() * board.getNumRows();
+		int totalCells = board.getNumCols() * board.getNumRows();
 		Assert.assertEquals(506, totalCells);
 		for (int i=0; i<totalCells; i++)
 		{
@@ -111,38 +117,43 @@ public class CR_BoardInitTests {
 	// correct.
 	@Test
 	public void testRoomInitials() {
-		assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
-		assertEquals('R', board.getRoomCellAt(4, 8).getInitial());
-		assertEquals('B', board.getRoomCellAt(9, 0).getInitial());
-		assertEquals('O', board.getRoomCellAt(21, 22).getInitial());
-		assertEquals('K', board.getRoomCellAt(21, 0).getInitial());
+		//assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
+		//...
+		assertEquals('C', board.getRoomCellAt(0, 0).getRoomInitial());
+		assertEquals('R', board.getRoomCellAt(4, 8).getRoomInitial());
+		assertEquals('B', board.getRoomCellAt(9, 0).getRoomInitial());
+		assertEquals('O', board.getRoomCellAt(21, 22).getRoomInitial());
+		assertEquals('K', board.getRoomCellAt(21, 0).getRoomInitial());
 	}
 	
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file names
-		Board b = new Board("ClueLayoutBadColumns.csv", "ClueLegend.txt");
+		//Board b = new Board("ClueLayoutBadColumns.csv", "ClueLegend.txt");
 		// You may change these calls if needed to match your function names
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
-		b.loadRoomConfig();
-		b.loadBoardConfig();
+		//b.loadRoomConfig();
+		//b.loadBoardConfig();
+		board.loadConfigFiles("CR_ClueLayoutBadColumns.csv", "CR_ClueLegend.txt");
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		Board b = new Board("ClueLayoutBadRoom.csv", "ClueLegend.txt");
-		b.loadRoomConfig();
-		b.loadBoardConfig();
+		//Board b = new Board("ClueLayoutBadRoom.csv", "ClueLegend.txt");
+		//b.loadRoomConfig();
+		//b.loadBoardConfig();
+		board.loadConfigFiles("CR_ClueLayoutBadRoom.csv", "CR_ClueLegend.txt");
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		Board b = new Board("ClueLayout.csv", "ClueLegendBadFormat.txt");
-		b.loadRoomConfig();
-		b.loadBoardConfig();
+		//Board b = new Board("ClueLayout.csv", "ClueLegendBadFormat.txt");
+		//b.loadRoomConfig();
+		//b.loadBoardConfig();
+		board.loadConfigFiles("CR_ClueLayout.csv", "CR_ClueLegendBadFormat.txt");
 	}
 }

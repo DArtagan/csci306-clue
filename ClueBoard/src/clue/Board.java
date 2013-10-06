@@ -78,4 +78,9 @@ public class Board {
 		}
 		System.out.println(board.getRooms().get('Y'));
 	}
+
+	public BoardCell getCellAt(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

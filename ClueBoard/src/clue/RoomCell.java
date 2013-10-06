@@ -1,6 +1,6 @@
 package clue;
 
-public class RoomCell {
+public class RoomCell extends BoardCell {
 	public enum DoorDirection {UP, RIGHT, DOWN, LEFT, NONE};
 	private DoorDirection doorDirection;
 	private char roomInitial;
