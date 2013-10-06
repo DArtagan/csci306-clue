@@ -38,24 +38,28 @@ public class Cell {
 
 	public Set<Integer> getTargets(int steps) {
 		this.targetList = new HashSet<Integer>();
+		HashSet<Integer> visitedList = new HashSet<Integer>();
 		steps = steps + 1;
-		this.targetList = calcTargets(this.index, steps, this.targetList);
-		this.targetList.remove(this.index);
+		this.targetList = calcTargets(this.index, steps, this.targetList, visitedList);
 		return this.targetList;
 	}
 	
-	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list) {
+	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
 		steps = steps - 1;
 		Cell cell = new Cell(start);
+		visited.add(start);
 		if(steps == 0) {
 			list.add(start);
 		} else {
-			if(cell.top != null) list = calcTargets(cell.top, steps, list);
-			if(cell.right != null) list = calcTargets(cell.right, steps, list);
-			if(cell.bottom != null) list = calcTargets(cell.bottom, steps, list);
-			if(cell.left != null) list = calcTargets(cell.left, steps, list);
+			HashSet<Integer> visited1 = new HashSet<Integer>(visited);
+			if(cell.top != null && !(visited.contains(cell.top))) list = calcTargets(cell.top, steps, list, visited1);
+			HashSet<Integer> visited2 = new HashSet<Integer>(visited);
+			if(cell.right != null && !(visited.contains(cell.right))) list = calcTargets(cell.right, steps, list, visited2);
+			HashSet<Integer> visited3 = new HashSet<Integer>(visited);
+			if(cell.bottom != null && !(visited.contains(cell.bottom))) list = calcTargets(cell.bottom, steps, list, visited3);
+			HashSet<Integer> visited4 = new HashSet<Integer>(visited);
+			if(cell.left != null && !(visited.contains(cell.left))) list = calcTargets(cell.left, steps, list, visited4);
 		}
-		
 		return list;
 	}
 	
