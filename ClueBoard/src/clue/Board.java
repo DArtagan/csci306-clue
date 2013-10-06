@@ -25,6 +25,7 @@ public class Board {
 		while(in2.hasNextLine()) {
 			String line = in2.nextLine();
 			String[] parts = line.split(", ");
+			if(parts.length != 2 || parts[0] == "" || parts[1] == "") throw new BadConfigFormatException("Legend is malformed.");
 			this.rooms.put(parts[0].charAt(0), parts[1]);
 		}
 		
@@ -47,13 +48,14 @@ public class Board {
 		}
 		this.numCols = col_count;
 		this.numRows = row_count;
-		this.config = configString.split(",");
+		String [] tempConfig = configString.split(",");
 		
-		for(String i: config) {
+		for(String i: tempConfig) {
 			char key = i.charAt(0);
 			String value = rooms.get(key);
 			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
 		}
+		this.config = tempConfig;
 	}
 	
 	public int calcIndex(int row, int col) {
