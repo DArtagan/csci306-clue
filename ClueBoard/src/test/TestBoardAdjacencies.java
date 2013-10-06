@@ -357,7 +357,8 @@ public class TestBoardAdjacencies {
 	}
 	
 	// Black: enter room targets
-		public void testTargetsIntoRoom2() {
+	@Test
+	public void testTargetsIntoRoom2() {
 		board.calcTargets(11, 9, 3);
 		targets = board.getTargets();
 		Assert.assertEquals(9,targets.size());
