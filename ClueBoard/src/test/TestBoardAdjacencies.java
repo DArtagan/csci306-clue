@@ -146,7 +146,25 @@ public class TestBoardAdjacencies {
 
 	// light blue
 	@Test
+	public void testTargetsTwoSteps() {
+		
+	}
+
+	// light blue
+	@Test
 	public void testTargetsThreeSteps() {
+		
+	}
+
+	// light blue
+	@Test
+	public void testTargetsFourSteps() {
+		
+	}
+
+	// light blue
+	@Test
+	public void testTargetsFiveSteps() {
 		
 	}
 
