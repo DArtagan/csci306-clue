@@ -180,9 +180,15 @@ public class TestBoardAdjacencies {
 		
 	}
 
-	// light blue
+	// light green
 	@Test
 	public void testTargetsRoomExits() {
+		list = board.getAdjList(board.calcIndex(5, 1));
+		assertTrue(list.contains(board.calcIndex(6, 1)));
+		assertEquals(1, list.size());
 		
+		list = board.getAdjList(board.calcIndex(0, 11));
+		assertTrue(list.contains(board.calcIndex(0, 10)));
+		assertEquals(1, list.size());
 	}
 }
