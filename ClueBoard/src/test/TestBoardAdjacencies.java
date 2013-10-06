@@ -305,8 +305,31 @@ public class TestBoardAdjacencies {
 	// black
 	@Test
 	public void testTargetsIntoRoom() {
-
-		}
+		board.calcTargets(7, 3, 3);
+		targets = board.getTargets();
+		Assert.assertEquals(8, targets.size());
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 1))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 0))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 1))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 2))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 3))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 4))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 6))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 5))));
+		
+		board.calcTargets(11, 9, 3);
+		targets = board.getTargets();
+		Assert.assertEquals(9,targets.size());
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 9))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 8))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 8))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 8))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 9))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 10))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 9))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(12, 9))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 10))));
+	}
 
 	// light green
 	@Test
