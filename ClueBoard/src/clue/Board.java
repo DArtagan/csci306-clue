@@ -25,6 +25,7 @@ public class Board {
 		while(in2.hasNextLine()) {
 			String line = in2.nextLine();
 			String[] parts = line.split(", ");
+			if(parts.length != 2 || parts[0] == "" || parts[1] == "") throw new BadConfigFormatException("Legend is malformed.");
 			this.rooms.put(parts[0].charAt(0), parts[1]);
 		}
 		
