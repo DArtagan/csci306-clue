@@ -49,13 +49,32 @@ public class TestBoardAdjacencies {
 	// purple
 	@Test
 	public void testAdjacenciesRoomExits() {
-		
+		list = board.getAdjList(board.calcIndex(5, 12));
+		Assert.assertTrue(list.contains(board.calcIndex(6, 12)));
+		Assert.assertEquals(1, list.size());
+
+		list = board.getAdjList(board.calcIndex(10, 18));
+		Assert.assertTrue(list.contains(board.calcIndex(10, 17)));
+		Assert.assertEquals(1, list.size());
+
+		list = board.getAdjList(board.calcIndex(11, 7));
+		Assert.assertTrue(list.contains(board.calcIndex(11, 8)));
+		Assert.assertEquals(1, list.size());
+
+		list = board.getAdjList(board.calcIndex(16, 16));
+		Assert.assertTrue(list.contains(board.calcIndex(15, 16)));
+		Assert.assertEquals(1, list.size());
 	}
 
 	// green
 	@Test
 	public void testAdjacenciesRoomEntrances() {
-		
+		//list = board.getAdjList(board.calcIndex(4, 4));
+		//Assert.assertTrue(list.contains(board.calcIndex(4, 3)));
+		//Assert.assertTrue(list.contains(board.calcIndex(4, 5)));
+		//Assert.assertTrue(list.contains(board.calcIndex(5, 4)));
+		//assertTrue(list.contains(board.calcIndex(5, 4)));
+		//assertEquals(4, list.size());
 	}
 
 	// light purple
