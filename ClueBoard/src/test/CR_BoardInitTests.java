@@ -101,6 +101,7 @@ public class CR_BoardInitTests {
 	}
 
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testCalcIndex() {
 		// Test each corner of the board
