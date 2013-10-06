@@ -336,7 +336,7 @@ public class TestBoardAdjacencies {
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 2))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 1))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 3))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 2))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 2)))); // Door
 		assertEquals(9, targets.size());
 	}
 
@@ -357,7 +357,8 @@ public class TestBoardAdjacencies {
 	}
 	
 	// Black: enter room targets
-		public void testTargetsIntoRoom2() {
+	@Test
+	public void testTargetsIntoRoom2() {
 		board.calcTargets(11, 9, 3);
 		targets = board.getTargets();
 		Assert.assertEquals(9,targets.size());
