@@ -105,7 +105,33 @@ public class TestBoardAdjacencies {
 	// light purple
 	@Test
 	public void testAdjacenciesWalkways() {
-		
+		list = board.getAdjList(board.calcIndex(0, 15));
+		assertTrue(list.contains(board.calcIndex(1, 15)));
+		assertEquals(1, list.size());
+
+		list = board.getAdjList(board.calcIndex(5, 18));
+		assertTrue(list.contains(board.calcIndex(5, 19)));
+		assertTrue(list.contains(board.calcIndex(6, 18)));
+		assertTrue(list.contains(board.calcIndex(5, 17)));
+		assertEquals(3, list.size());
+
+		list = board.getAdjList(board.calcIndex(7, 22));
+		assertTrue(list.contains(board.calcIndex(6, 22)));
+		assertTrue(list.contains(board.calcIndex(7, 21)));
+		assertEquals(2, list.size());
+
+		list = board.getAdjList(board.calcIndex(10, 16));
+		assertTrue(list.contains(board.calcIndex(9, 16)));
+		assertTrue(list.contains(board.calcIndex(10, 17)));
+		assertTrue(list.contains(board.calcIndex(11, 16)));
+		assertTrue(list.contains(board.calcIndex(10, 15)));
+		assertEquals(4, list.size());
+
+		list = board.getAdjList(board.calcIndex(16, 0));
+		assertTrue(list.contains(board.calcIndex(15, 0)));
+		assertTrue(list.contains(board.calcIndex(16, 1)));
+		assertEquals(2, list.size());
+
 	}
 
 	// light blue
