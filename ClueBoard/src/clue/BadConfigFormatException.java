@@ -12,6 +12,7 @@ public class BadConfigFormatException extends Exception {
 		try {
 			FileWriter log = new FileWriter(logfile, true);
 			log.write(this.toString());
+			log.write("\r\n");
 			log.close();
 		} catch (IOException e) {
 			e.printStackTrace();
