@@ -302,21 +302,35 @@ public class TestBoardAdjacencies {
 		assertEquals(9, targets.size());
 	}
 
-	// light blue
+	// black
 	@Test
 	public void testTargetsIntoRoom() {
-		
-	}
+
+		}
 
 	// light green
 	@Test
 	public void testTargetsRoomExits() {
-		list = board.getAdjList(board.calcIndex(5, 1));
-		assertTrue(list.contains(board.calcIndex(6, 1)));
-		assertEquals(1, list.size());
+		board.calcTargets(6, 1, 1);
+		targets= board.getTargets();
+		Assert.assertEquals(1, targets.size());
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 1))));
 		
-		list = board.getAdjList(board.calcIndex(0, 11));
-		assertTrue(list.contains(board.calcIndex(0, 10)));
-		assertEquals(1, list.size());
+		board.calcTargets(6, 1, 2);
+		targets = board.getTargets();
+		Assert.assertEquals(3, targets.size());
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 1))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 0))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 2))));
+		
+		board.calcTargets(0, 11, 1);
+		targets= board.getTargets();
+		Assert.assertEquals(1, targets.size());
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(0, 10))));
+		
+		board.calcTargets(0, 11, 3);
+		targets = board.getTargets();
+		Assert.assertEquals(1, targets.size());
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(2, 10))));
 	}
 }
