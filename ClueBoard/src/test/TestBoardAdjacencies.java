@@ -69,12 +69,37 @@ public class TestBoardAdjacencies {
 	// green
 	@Test
 	public void testAdjacenciesRoomEntrances() {
-		//list = board.getAdjList(board.calcIndex(4, 4));
-		//Assert.assertTrue(list.contains(board.calcIndex(4, 3)));
-		//Assert.assertTrue(list.contains(board.calcIndex(4, 5)));
-		//Assert.assertTrue(list.contains(board.calcIndex(5, 4)));
-		//assertTrue(list.contains(board.calcIndex(5, 4)));
-		//assertEquals(4, list.size());
+		list = board.getAdjList(board.calcIndex(6, 13));
+		assertTrue(list.contains(board.calcIndex(5, 13)));
+		assertTrue(list.contains(board.calcIndex(6, 14)));
+		assertTrue(list.contains(board.calcIndex(7, 13)));
+		assertTrue(list.contains(board.calcIndex(6, 12)));
+		assertEquals(4, list.size());
+
+		list = board.getAdjList(board.calcIndex(10, 17));
+		assertTrue(list.contains(board.calcIndex(9, 17)));
+		assertTrue(list.contains(board.calcIndex(10, 18)));
+		assertTrue(list.contains(board.calcIndex(11, 17)));
+		assertTrue(list.contains(board.calcIndex(10, 16)));
+		assertEquals(4, list.size());
+
+		list = board.getAdjList(board.calcIndex(15, 14));
+		assertTrue(list.contains(board.calcIndex(14, 14)));
+		assertTrue(list.contains(board.calcIndex(15, 15)));
+		assertTrue(list.contains(board.calcIndex(15, 13)));
+		assertEquals(3, list.size());
+
+		list = board.getAdjList(board.calcIndex(14, 8));
+		assertTrue(list.contains(board.calcIndex(13, 8)));
+		assertTrue(list.contains(board.calcIndex(14, 9)));
+		assertTrue(list.contains(board.calcIndex(15, 8)));
+		assertTrue(list.contains(board.calcIndex(14, 7)));
+		assertEquals(4, list.size());
+
+		list = board.getAdjList(board.calcIndex(4, 15));
+		assertTrue(list.contains(board.calcIndex(3, 15)));
+		assertTrue(list.contains(board.calcIndex(5, 15)));
+		assertEquals(2, list.size());
 	}
 
 	// light purple
