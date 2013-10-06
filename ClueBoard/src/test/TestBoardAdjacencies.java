@@ -141,7 +141,18 @@ public class TestBoardAdjacencies {
 	// light blue
 	@Test
 	public void testTargetsOneStep() {
+		board.calcTargets(4, 10, 1);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(3, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(5, 10))));
+		assertEquals(2, targets.size());
 		
+		board.calcTargets(14, 13, 1);
+		targets = board.getTargets();
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 13))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 14))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 12))));
+		assertEquals(3, targets.size());
 	}
 
 	// light blue
