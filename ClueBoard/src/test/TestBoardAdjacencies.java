@@ -272,17 +272,21 @@ public class TestBoardAdjacencies {
 
 		board.calcTargets(8, 9, 4);
 		targets = board.getTargets();
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 6))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 7))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 8))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 10))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 9))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 8))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 11))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 9))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 9))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 8))));
-		assertEquals(, targets.size());
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(5, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 7))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 11))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 6))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 12))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 5))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 7))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(12, 9))));
+		assertEquals(14, targets.size());
 		
 		board.calcTargets(15, 4, 4);
 		targets = board.getTargets();
