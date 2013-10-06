@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class TestBoardAdjacencies {
 	LinkedList<Integer> list;
 
 	@Before
-	public static void setUp() {
+	public void setUp() {
 		board = new Board();
 		try {
 			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
@@ -26,12 +27,23 @@ public class TestBoardAdjacencies {
 			e.printStackTrace();
 		}
 		board.calcAdjacencies();
+		list = null;
 	}
 
 	// red
 	@Test
 	public void testAdjacenciesInsideRooms() {
-		list = board.getAdjList(board.calcIndex(0, 0));
+		list = board.getAdjList(board.calcIndex(1, 1));
+		Assert.assertEquals(0, list.size());
+
+		list = board.getAdjList(board.calcIndex(4, 18));
+		Assert.assertEquals(0, list.size());
+
+		list = board.getAdjList(board.calcIndex(11, 6));
+		Assert.assertEquals(0, list.size());
+
+		list = board.getAdjList(board.calcIndex(22, 11));
+		Assert.assertEquals(0, list.size());
 	}
 
 	// purple
