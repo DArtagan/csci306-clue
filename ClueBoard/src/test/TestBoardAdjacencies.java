@@ -25,7 +25,5 @@ public class TestBoardAdjacencies {
 		}
 		board.calcAdjacencies();
 	}
-	
-	
 
 }
