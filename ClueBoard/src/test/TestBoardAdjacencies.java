@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,10 +12,12 @@ import org.junit.Test;
 
 import clue.BadConfigFormatException;
 import clue.Board;
+import clue.BoardCell;
 
 public class TestBoardAdjacencies {
 	private static Board board;
 	LinkedList<Integer> list;
+	Set<BoardCell> targets;
 
 	@Before
 	public void setUp() {
@@ -28,6 +31,7 @@ public class TestBoardAdjacencies {
 		}
 		board.calcAdjacencies();
 		list = null;
+		targets = null;
 	}
 
 	// red
@@ -160,7 +164,7 @@ public class TestBoardAdjacencies {
 
 	// light blue
 	@Test
-	public void testRoomExits() {
+	public void testTargetsRoomExits() {
 		
 	}
 }
