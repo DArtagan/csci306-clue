@@ -43,6 +43,7 @@ public class Board {
 				legendReader.close();
 				throw new BadConfigFormatException("Legend is malformed.");
 			}
+			// Map the Initial (char) to the name.
 			rooms.put(parts[0].charAt(0), parts[1]);
 		}
 		legendIn.close();
