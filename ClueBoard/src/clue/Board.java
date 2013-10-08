@@ -2,7 +2,6 @@ package clue;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.FileSystemNotFoundException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
