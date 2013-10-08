@@ -54,10 +54,6 @@ public class BoardCell {
 		return adjList;
 	}
 
-	public int calcIndex(int row, int col) {
-		return (row * MAX_ROW) + col;
-	}
-
 	public int getIndex() {
 		return this.index;
 	}
