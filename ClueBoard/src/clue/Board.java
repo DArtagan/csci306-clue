@@ -173,22 +173,22 @@ public class Board {
 		return targetCells;
 	}
 
-	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
+	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> targets, HashSet<Integer> visited) {
 		// This is our recursive function that creates the targets list.
 		steps = steps - 1;
 		visited.add(start);
 		if(getCellAt(start).isDoorway()) {
-			list.add(start);
+			targets.add(start);
 		} else if(steps == 0) {
-			list.add(start);
+			targets.add(start);
 		} else {
 			for(Integer adjCell : getAdjList(start)) {
 				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
 				if(!visited.contains(adjCell)) {
-					list = calcTargets(adjCell, steps, list, visitedTemp);
+					targets = calcTargets(adjCell, steps, targets, visitedTemp);
 				}
 			}
 		}
-		return list;
+		return targets;
 	}
 }
