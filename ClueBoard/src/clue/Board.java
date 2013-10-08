@@ -94,17 +94,6 @@ public class Board {
 		return numCols;
 	}
 
-	public static void main(String[] args) throws BadConfigFormatException {
-		Board board = new Board();
-		try {
-			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(board.getRooms().get('Y'));
-	}
-
 	public BoardCell getCellAt(int i) {
 		if(config[i] == "W") return new WalkwayCell(i);
 		else return new RoomCell(i, this.config[i]);
