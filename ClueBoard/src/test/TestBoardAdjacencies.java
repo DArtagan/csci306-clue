@@ -139,7 +139,6 @@ public class TestBoardAdjacencies {
 	@Test
 	public void testAdjacenciesWalkways1() {
 		list = board.getAdjList(board.calcIndex(0, 15));
-		System.out.println(list);
 		assertTrue(list.contains(board.calcIndex(1, 15)));
 		assertEquals(1, list.size());
 	}
@@ -195,7 +194,6 @@ public class TestBoardAdjacencies {
 	@Test
 	public void testTargetsTwoSteps() {
 		Set<BoardCell> targets = board.getTargets(board.calcIndex(4, 10), 2);
-		System.out.println(targets);
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(2, 10))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(5, 11))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 10))));
@@ -363,6 +361,7 @@ public class TestBoardAdjacencies {
 	public void testTargetsRoomExits1() {
 		targets = board.getTargets(board.calcIndex(6, 1), 1);
 		Assert.assertEquals(1, targets.size());
+		System.out.println(targets);
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 1))));
 
 		targets = board.getTargets(board.calcIndex(6, 1), 2);

@@ -156,11 +156,13 @@ public class Board {
 		HashSet<Integer> visitedList = new HashSet<Integer>();
 		steps = steps + 1;
 		targetList = calcTargets(index, steps, targetList, visitedList);
+		System.out.println(targetList);
 		// Ssh, this was a Set of cells all along.
 		HashSet<BoardCell> targetCells = new HashSet<BoardCell>();
 		for(int target : targetList) {
 			targetCells.add(getCellAt(target));
 		}
+		System.out.println(targetCells);
 		return targetCells;
 	}
 
@@ -172,9 +174,12 @@ public class Board {
 		} else {
 			LinkedList<Integer> adjCells = new LinkedList<Integer>();
 			for(Integer adjCell : getAdjList(start)) {
+				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
 				if(!visited.contains(adjCell)) {
-					adjCells.add(adjCell);
+					//adjCells.add(adjCell);
+					list = calcTargets(adjCell, steps, list, visitedTemp);
 				}
+				visited.remove(adjCell);
 			}
 			/*for(int i = 0; i<cardinals.length; ++i) {
 				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
