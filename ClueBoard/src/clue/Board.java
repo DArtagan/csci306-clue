@@ -164,9 +164,4 @@ public class Board {
 		}
 		return list;
 	}
-
-	public void calcAdjacencies() {
-		// TODO Auto-generated method stub
-
-	}
 }
