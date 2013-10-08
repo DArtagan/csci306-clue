@@ -18,67 +18,6 @@ public class Board {
 		rooms = new HashMap<Character, String>();
 	}
 
-	public void loadConfigFiles(String board, String legend) throws IOException, BadConfigFormatException {
-		// Import Legend
-		FileReader legendReader = new FileReader(legend);
-		Scanner legendIn = new Scanner(legendReader);
-		while(legendIn.hasNextLine()) {
-			String line = legendIn.nextLine();
-			String[] parts = line.split(", ");
-			if(parts.length != 2 || parts[0] == "" || parts[1] == "") {
-				legendIn.close();
-				legendReader.close();
-				throw new BadConfigFormatException("Legend is malformed.");
-			}
-			this.rooms.put(parts[0].charAt(0), parts[1]);
-		}
-		legendIn.close();
-		legendReader.close();
-
-		// Import Clue Board
-		FileReader boardReader = new FileReader(board);
-		Scanner boardIn = new Scanner(boardReader);
-		String configString = "";
-		int col_count = -1;
-		int row_count = 0;
-		while(boardIn.hasNextLine()) {
-			String line = boardIn.nextLine();
-			configString += line + ",";
-			String[] parts = line.split(",");
-			if(col_count == -1) {
-				col_count = parts.length;
-			} else {
-				if(col_count != parts.length) {
-					boardIn.close();
-					boardReader.close();
-					throw new BadConfigFormatException("Line length mismatch");
-				}
-			}
-			row_count += 1;
-		}
-		boardIn.close();
-		boardReader.close();
-		numCols = col_count;
-		numRows = row_count;
-		String[] tempConfig = configString.split(",");
-
-		for(String i: tempConfig) {
-			char key = i.charAt(0);
-			String value = rooms.get(key);
-			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
-		}
-		this.config = tempConfig;
-	}
-
-	public int calcIndex(int row, int col) {
-		return (row * numCols) + col;
-	}
-
-	public RoomCell getRoomCellAt(int row, int col) {
-		int index = this.calcIndex(row, col);
-		return new RoomCell(index, this.config[index]);
-	}
-
 	public Map<Character, String> getRooms() {
 		return rooms;
 	}
@@ -91,11 +30,77 @@ public class Board {
 		return numCols;
 	}
 
+	public void loadConfigFiles(String board, String legend) throws IOException, BadConfigFormatException {
+		// Import Legend
+		FileReader legendReader = new FileReader(legend);
+		Scanner legendIn = new Scanner(legendReader);
+		String line, parts[];
+		while(legendIn.hasNextLine()) {
+			line = legendIn.nextLine();
+			parts = line.split(", ");
+			if(parts.length != 2 || parts[0] == "" || parts[1] == "") {
+				legendIn.close();
+				legendReader.close();
+				throw new BadConfigFormatException("Legend is malformed.");
+			}
+			rooms.put(parts[0].charAt(0), parts[1]);
+		}
+		legendIn.close();
+		legendReader.close();
+
+		// Import Clue Board
+		FileReader boardReader = new FileReader(board);
+		Scanner boardIn = new Scanner(boardReader);
+		String configString = "";
+		int col_count = -1;
+		int row_count = 0;
+
+		while(boardIn.hasNextLine()) {
+			line = boardIn.nextLine();
+			configString += line + ",";
+			parts = line.split(",");
+			if(col_count == -1) {
+				col_count = parts.length;
+			} else {
+				if(col_count != parts.length) {
+					boardIn.close();
+					boardReader.close();
+					throw new BadConfigFormatException("Line length mismatch in board config.");
+				}
+			}
+			row_count += 1;
+		}
+		boardIn.close();
+		boardReader.close();
+		numCols = col_count;
+		numRows = row_count;
+
+		String[] tempConfig = configString.split(",");
+		char key;
+		String value;
+		for(String i : tempConfig) {
+			key = i.charAt(0);
+			value = rooms.get(key);
+			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
+		}
+		config = tempConfig;
+	}
+
+	public int calcIndex(int row, int col) {
+		// Does not check for bad row/col values...
+		return (row * numCols) + col;
+	}
+
+	public RoomCell getRoomCellAt(int row, int col) {
+		// No error checking? What happens if this is not a room cell?
+		int index = this.calcIndex(row, col);
+		return new RoomCell(index, this.config[index]);
+	}
+
 	public BoardCell getCellAt(int i) {
 		if(config[i].equals("W")) {
 			return new WalkwayCell(i);
-		}
-		else {
+		} else {
 			return new RoomCell(i, this.config[i]);
 		}
 	}
