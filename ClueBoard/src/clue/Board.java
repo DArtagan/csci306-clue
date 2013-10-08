@@ -72,8 +72,6 @@ public class Board {
 		}
 		boardIn.close();
 		boardReader.close();
-		numCols = col_count;
-		numRows = row_count;
 
 		String[] tempConfig = configString.split(",");
 		String value;
@@ -81,6 +79,8 @@ public class Board {
 			value = rooms.get(i.charAt(0));
 			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
 		}
+		numCols = col_count;
+		numRows = row_count;
 		config = tempConfig;
 	}
 
