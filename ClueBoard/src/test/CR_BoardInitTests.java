@@ -5,7 +5,7 @@ package test;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -30,7 +30,7 @@ public class CR_BoardInitTests {
 		board = new Board();
 		try {
 			board.loadConfigFiles("CR_ClueLayout.csv", "CR_ClueLegend.txt");
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
@@ -129,7 +129,7 @@ public class CR_BoardInitTests {
 	
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
+	public void testBadColumns() throws BadConfigFormatException, IOException {
 		// overloaded Board ctor takes config file names
 		//Board b = new Board("ClueLayoutBadColumns.csv", "ClueLegend.txt");
 		// You may change these calls if needed to match your function names
@@ -141,7 +141,7 @@ public class CR_BoardInitTests {
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
+	public void testBadRoom() throws BadConfigFormatException, IOException {
 		// overloaded Board ctor takes config file name
 		//Board b = new Board("ClueLayoutBadRoom.csv", "ClueLegend.txt");
 		//b.loadRoomConfig();
@@ -150,7 +150,7 @@ public class CR_BoardInitTests {
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
+	public void testBadRoomFormat() throws BadConfigFormatException, IOException {
 		// overloaded Board ctor takes config file name
 		//Board b = new Board("ClueLayout.csv", "ClueLegendBadFormat.txt");
 		//b.loadRoomConfig();

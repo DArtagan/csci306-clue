@@ -38,24 +38,25 @@ public class Cell {
 
 	public Set<Integer> getTargets(int steps) {
 		this.targetList = new HashSet<Integer>();
+		HashSet<Integer> visitedList = new HashSet<Integer>();
 		steps = steps + 1;
-		this.targetList = calcTargets(this.index, steps, this.targetList);
-		this.targetList.remove(this.index);
+		this.targetList = calcTargets(this.index, steps, this.targetList, visitedList);
 		return this.targetList;
 	}
 	
-	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list) {
+	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
 		steps = steps - 1;
 		Cell cell = new Cell(start);
+		visited.add(start);
 		if(steps == 0) {
 			list.add(start);
 		} else {
-			if(cell.top != null) list = calcTargets(cell.top, steps, list);
-			if(cell.right != null) list = calcTargets(cell.right, steps, list);
-			if(cell.bottom != null) list = calcTargets(cell.bottom, steps, list);
-			if(cell.left != null) list = calcTargets(cell.left, steps, list);
+			for (int adjCell : cell.getAdjList()) {
+				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
+				if (!visited.contains(adjCell)) 
+					list = calcTargets(adjCell, steps, list, visitedTemp);
+			}
 		}
-		
 		return list;
 	}
 	

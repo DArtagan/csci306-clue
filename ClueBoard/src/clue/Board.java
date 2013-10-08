@@ -1,72 +1,26 @@
 package clue;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Board {
-	// Variables
-	private ArrayList<BoardCell> cells;
-	protected static int numRows = 0;
-	protected static int numCols = 0;
-	protected static String [] config;
-	protected static Map<Character, String> rooms = new HashMap<Character, String>();
-	
-	// Methods
-	public void loadConfigFiles(String board, String legend) throws FileNotFoundException, BadConfigFormatException {
-		// Import Legend
-		FileReader reader2 = new FileReader(legend);
-		Scanner in2 = new Scanner(reader2);
-		while(in2.hasNextLine()) {
-			String line = in2.nextLine();
-			String[] parts = line.split(", ");
-			if(parts.length != 2 || parts[0] == "" || parts[1] == "") throw new BadConfigFormatException("Legend is malformed.");
-			this.rooms.put(parts[0].charAt(0), parts[1]);
-		}
-		
-		// Import Clue Board
-		FileReader reader1 = new FileReader(board);
-		Scanner in1 = new Scanner(reader1);
-		String configString = "";
-		int col_count = -1;
-		int row_count = 0;
-		while(in1.hasNextLine()) {
-			String line = in1.nextLine();
-			configString += line + ",";
-			String[] parts = line.split(",");
-			if(col_count == -1) {
-				col_count = parts.length;
-			} else {
-				if(col_count != parts.length) throw new BadConfigFormatException("Line length mismatch");
-			}
-			row_count += 1;
-		}
-		this.numCols = col_count;
-		this.numRows = row_count;
-		String [] tempConfig = configString.split(",");
-		
-		for(String i: tempConfig) {
-			char key = i.charAt(0);
-			String value = rooms.get(key);
-			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
-		}
-		this.config = tempConfig;
-	}
-	
-	public int calcIndex(int row, int col) {
-		return (row * Board.numCols) + col;
-	}
-	
-	public RoomCell getRoomCellAt(int row, int col) {
-		return new RoomCell(row, col);
+	protected static int numRows;
+	protected static int numCols;
+	private String[] config;
+	private HashMap<Character, String> rooms;
+	private HashMap<Integer, BoardCell> cellCache;
+
+	public Board() {
+		rooms = new HashMap<Character, String>();
+		cellCache = new HashMap<Integer, BoardCell>();
 	}
 
-	public Map<Character, String> getRooms() {
+	public HashMap<Character, String> getRooms() {
 		return rooms;
 	}
 
@@ -78,39 +32,166 @@ public class Board {
 		return numCols;
 	}
 
-	public static void main(String[] args) throws BadConfigFormatException {
-		Board board = new Board();
-		try {
-			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void loadConfigFiles(String board, String legend) throws IOException, BadConfigFormatException {
+		// Import Legend
+		FileReader legendReader = new FileReader(legend);
+		Scanner legendIn = new Scanner(legendReader);
+		String line, parts[];
+		while(legendIn.hasNextLine()) {
+			line = legendIn.nextLine();
+			parts = line.split(", ");
+			if(parts.length != 2 || parts[0] == "" || parts[1] == "") {
+				legendIn.close();
+				legendReader.close();
+				throw new BadConfigFormatException("Legend is malformed.");
+			}
+			rooms.put(parts[0].charAt(0), parts[1]);
 		}
-		System.out.println(board.getRooms().get('Y'));
+		legendIn.close();
+		legendReader.close();
+
+		// Import Clue Board
+		FileReader boardReader = new FileReader(board);
+		Scanner boardIn = new Scanner(boardReader);
+		String configString = "";
+		int col_count = -1;
+		int row_count = 0;
+
+		while(boardIn.hasNextLine()) {
+			line = boardIn.nextLine();
+			configString += line + ",";
+			parts = line.split(",");
+			if(col_count == -1) {
+				col_count = parts.length;
+			} else {
+				if(col_count != parts.length) {
+					boardIn.close();
+					boardReader.close();
+					throw new BadConfigFormatException("Line length mismatch in board config.");
+				}
+			}
+			row_count += 1;
+		}
+		boardIn.close();
+		boardReader.close();
+		numCols = col_count;
+		numRows = row_count;
+
+		String[] tempConfig = configString.split(",");
+		char key;
+		String value;
+		for(String i : tempConfig) {
+			key = i.charAt(0);
+			value = rooms.get(key);
+			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
+		}
+		config = tempConfig;
+	}
+
+	public int calcIndex(int row, int col) {
+		// Does not check for bad row/col values...
+		return (row * numCols) + col;
+	}
+
+	public RoomCell getRoomCellAt(int row, int col) {
+		// No error checking? What happens if this is not a room cell?
+		// Note that this does not use the cellCache, because we shouldn't
+		// risk filling our cache with arbitrary RoomCells instead of cells
+		// based on the config.
+		int index = this.calcIndex(row, col);
+		return new RoomCell(index, numRows, numCols, config[index]);
 	}
 
 	public BoardCell getCellAt(int i) {
-		if(config[i] == "W") return new WalkwayCell(i);
-		else return new RoomCell(i);
+		if(cellCache.get(i) == null) {
+			// Then create the cell.
+			if(config[i].equals("W")) {
+				cellCache.put(i, new WalkwayCell(i, numRows, numCols));
+			} else {
+				cellCache.put(i, new RoomCell(i, numRows, numCols, config[i]));
+			}
+		}
+		return cellCache.get(i);
 	}
 
-	public LinkedList<Integer> getAdjList(int calcIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	public LinkedList<Integer> getAdjList(int index) {
+		LinkedList<Integer> adjList = new LinkedList<Integer>();
+		LinkedList<Integer> adjCells = new LinkedList<Integer>();
+		BoardCell cell = getCellAt(index);
+		if(cell.isDoorway()) {
+			switch(((RoomCell) cell).getDoorDirection()) {
+				case UP: adjCells.add(cell.top); break;
+				case RIGHT: adjCells.add(cell.right); break;
+				case DOWN: adjCells.add(cell.bottom); break;
+				case LEFT: adjCells.add(cell.left); break;
+				default: break;
+				// isDoorway already checks that direction is not NONE,
+				// default case should never happen.
+			}
+			// This is the only adjacency for doors.
+			return adjCells;
+		} else if(cell.isRoom()) {
+			// Room cells (that are not doors) don't have any adjacencies.
+			return adjCells;
+		}
+
+		// Here, we use the fact that LinkedLists and arrays are both ordered
+		// to associate each link with its proper door direction. If we are
+		// moving up, we may only enter doors with a direction of DOWN, etc.
+		adjList.add(cell.top);
+		adjList.add(cell.right);
+		adjList.add(cell.bottom);
+		adjList.add(cell.left);
+		RoomCell.DoorDirection[] cardinals = {RoomCell.DoorDirection.DOWN, RoomCell.DoorDirection.LEFT, RoomCell.DoorDirection.UP, RoomCell.DoorDirection.RIGHT};
+		for(int i = 0; i<cardinals.length; ++i) {
+			if(adjList.get(i) == null) {
+				continue;
+			}
+			BoardCell cellTemp = getCellAt(adjList.get(i));
+			if(cellTemp.isWalkway() || (cellTemp.isDoorway() && ((RoomCell) cellTemp).getDoorDirection() == cardinals[i])) {
+				// The cell is either a walkway, or a door with the correct direction.
+				// Just trust us, don't try to think about it.
+				adjCells.add(cellTemp.index);
+			}
+		}
+		return adjCells;
 	}
 
-	public Set<BoardCell> getTargets() {
-		// TODO Auto-generated method stub
-		return null;
+	public HashSet<BoardCell> getTargets(int index, int steps) {
+		// This is the initial setup function that calls our recursive calcTargets().
+		HashSet<Integer> targetList = new HashSet<Integer>();
+		HashSet<Integer> visitedList = new HashSet<Integer>();
+		steps = steps + 1;
+		if(getCellAt(index).isDoorway()) {
+			targetList = calcTargets(getAdjList(index).get(0), steps - 1, targetList, visitedList);
+			targetList.remove(index);
+		} else {
+			targetList = calcTargets(index, steps, targetList, visitedList);
+		}
+		// Ssh, this was a Set of cells all along.
+		HashSet<BoardCell> targetCells = new HashSet<BoardCell>();
+		for(int target : targetList) {
+			targetCells.add(getCellAt(target));
+		}
+		return targetCells;
 	}
 
-	public void calcTargets(int i, int j, int k) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void calcAdjacencies() {
-		// TODO Auto-generated method stub
-		
+	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
+		// This is our recursive function that creates the targets list.
+		steps = steps - 1;
+		visited.add(start);
+		if(getCellAt(start).isDoorway()) {
+			list.add(start);
+		} else if(steps == 0) {
+			list.add(start);
+		} else {
+			for(Integer adjCell : getAdjList(start)) {
+				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
+				if(!visited.contains(adjCell)) {
+					list = calcTargets(adjCell, steps, list, visitedTemp);
+				}
+			}
+		}
+		return list;
 	}
 }
