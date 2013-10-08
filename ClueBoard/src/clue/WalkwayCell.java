@@ -4,7 +4,7 @@ public class WalkwayCell extends BoardCell {
 	private int index;
 	
 	public WalkwayCell(int i) {
-		super();
+		super(i);
 		index = i;
 	}
 	

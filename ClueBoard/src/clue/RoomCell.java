@@ -5,15 +5,9 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection = DoorDirection.NONE;
 	private char roomInitial;
 	private int index;
-	
-	public RoomCell(int row, int col) {
-		super();
-		int i = (row * Board.numCols) + col;
-		createRoomCell(i);
-	}
 
 	public RoomCell(int i) {
-		super();
+		super(i);
 		createRoomCell(i);
 	}
 	

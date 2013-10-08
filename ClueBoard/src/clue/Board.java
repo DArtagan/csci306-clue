@@ -63,7 +63,7 @@ public class Board {
 	}
 	
 	public RoomCell getRoomCellAt(int row, int col) {
-		return new RoomCell(row, col);
+		return new RoomCell(this.calcIndex(row, col));
 	}
 
 	public Map<Character, String> getRooms() {

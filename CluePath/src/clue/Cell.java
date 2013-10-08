@@ -51,14 +51,11 @@ public class Cell {
 		if(steps == 0) {
 			list.add(start);
 		} else {
-			HashSet<Integer> visited1 = new HashSet<Integer>(visited);
-			if(cell.top != null && !(visited.contains(cell.top))) list = calcTargets(cell.top, steps, list, visited1);
-			HashSet<Integer> visited2 = new HashSet<Integer>(visited);
-			if(cell.right != null && !(visited.contains(cell.right))) list = calcTargets(cell.right, steps, list, visited2);
-			HashSet<Integer> visited3 = new HashSet<Integer>(visited);
-			if(cell.bottom != null && !(visited.contains(cell.bottom))) list = calcTargets(cell.bottom, steps, list, visited3);
-			HashSet<Integer> visited4 = new HashSet<Integer>(visited);
-			if(cell.left != null && !(visited.contains(cell.left))) list = calcTargets(cell.left, steps, list, visited4);
+			for (int adjCell : cell.getAdjList()) {
+				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
+				if (!visited.contains(adjCell)) 
+					list = calcTargets(adjCell, steps, list, visitedTemp);
+			}
 		}
 		return list;
 	}
