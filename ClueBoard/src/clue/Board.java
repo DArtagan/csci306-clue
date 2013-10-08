@@ -9,18 +9,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Board {
-	// Variables
-	protected static int numRows = 0;
-	protected static int numCols = 0;
-	private String [] config;
-	protected Map<Character, String> rooms;
+	protected static int numRows;
+	protected static int numCols;
+	private String[] config;
+	private Map<Character, String> rooms;
 
-	// Constructor
 	public Board() {
 		rooms = new HashMap<Character, String>();
 	}
 
-	// Methods
 	public void loadConfigFiles(String board, String legend) throws IOException, BadConfigFormatException {
 		// Import Legend
 		FileReader legendReader = new FileReader(legend);
@@ -123,19 +120,22 @@ public class Board {
 					break;
 				default:
 					break;
-					// Don't put a doorway into nothing... :(
+					// isDoorway already checks that direction is not NONE, 
+					// default case should never happen.
 			}
 			return adjCells;
 		} else if(cell.isRoom()) {
 			return adjCells;
-			// Room cells don't have any adjacencies.
+			// Room cells (that are not doors) don't have any adjacencies.
 		}
 
 		adjList.add(cell.top);
 		adjList.add(cell.right);
 		adjList.add(cell.bottom);
 		adjList.add(cell.left);
-		
+		// Here, we use the fact that LinkedLists and arrays are both ordered
+		// to associate each link with its proper door direction. If we are
+		// moving up, we may only enter doors with a direction of DOWN, etc.
 		RoomCell.DoorDirection[] cardinals = {RoomCell.DoorDirection.DOWN, RoomCell.DoorDirection.LEFT, RoomCell.DoorDirection.UP, RoomCell.DoorDirection.RIGHT};
 		for(int i = 0; i<cardinals.length; ++i) {
 			if(adjList.get(i) == null) {
@@ -152,6 +152,7 @@ public class Board {
 	}
 
 	public HashSet<BoardCell> getTargets(int index, int steps) {
+		// This is the initial setup function that calls our recursive calcTargets().
 		HashSet<Integer> targetList = new HashSet<Integer>();
 		HashSet<Integer> visitedList = new HashSet<Integer>();
 		steps = steps + 1;
@@ -170,6 +171,7 @@ public class Board {
 	}
 
 	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
+		// This is our recursive function that creates the targets list.
 		steps = steps - 1;
 		visited.add(start);
 		if(getCellAt(start).isDoorway()) {

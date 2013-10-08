@@ -10,9 +10,8 @@ public class RoomCell extends BoardCell {
 		doorDirection = DoorDirection.NONE;
 		this.roomInitial = config.charAt(0);
 		String roomSpec = config;
-		this.index = i;
 
-		if(roomSpec.length() > 1) {
+		if(roomSpec.length() > 1) { // Then we have a door.
 			char door = roomSpec.charAt(1);
 			if(door == 'U') this.doorDirection = DoorDirection.UP;
 			else if(door == 'R') this.doorDirection = DoorDirection.RIGHT;
@@ -29,12 +28,12 @@ public class RoomCell extends BoardCell {
 		return roomInitial;
 	}
 
+	public boolean isRoom() {
+		return true;
+	}
+
 	public boolean isDoorway() {
 		if(this.doorDirection != DoorDirection.NONE) return true;
 		else return false;
-	}
-
-	public boolean isRoom() {
-		return true;
 	}
 }
