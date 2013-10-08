@@ -334,56 +334,56 @@ public class TestBoardAdjacencies {
 	@Test
 	public void testTargetsIntoRoom1() {
 		targets = board.getTargets(board.calcIndex(7, 3), 3);
-		Assert.assertEquals(8, targets.size());
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 1))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 0))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 1))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 2))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 3))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 4))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 6))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 5))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 1))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 0))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 1))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 2))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 3))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 4))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 6))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 5))));
+		assertEquals(8, targets.size());
 	}
 
 	// Black: enter room targets
 	@Test
 	public void testTargetsIntoRoom2() {
 		targets = board.getTargets(board.calcIndex(11, 9), 3);
-		Assert.assertEquals(9,targets.size());
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 9))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 8))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 8))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 7))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 8))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 9))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 10))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 9))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(12, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(11, 7))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 8))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(10, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(12, 9))));
+		assertEquals(9,targets.size());
 	}
 
 	// Light green: exit room targets
 	@Test
 	public void testTargetsRoomExits1() {
 		targets = board.getTargets(board.calcIndex(6, 1), 1);
-		Assert.assertEquals(1, targets.size());
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 1))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 1))));
+		assertEquals(1, targets.size());
 
 		targets = board.getTargets(board.calcIndex(6, 1), 2);
-		Assert.assertEquals(3, targets.size());
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 1))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 0))));
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 2))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 1))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 0))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 2))));
+		assertEquals(3, targets.size());
 	}
 	
 	// Light green: exit room targets
 	@Test
 	public void testTargetsRoomExits2() {
 		targets = board.getTargets(board.calcIndex(0, 11), 1);
-		Assert.assertEquals(1, targets.size());
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(0, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(0, 10))));
+		assertEquals(1, targets.size());
 		
 		targets = board.getTargets(board.calcIndex(0, 11), 3);
-		Assert.assertEquals(1, targets.size());
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(2, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(2, 10))));
+		assertEquals(1, targets.size());
 	}
 }
