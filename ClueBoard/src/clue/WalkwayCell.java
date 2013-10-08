@@ -1,11 +1,9 @@
 package clue;
 
 public class WalkwayCell extends BoardCell {
-	private int index;
-	
 	public WalkwayCell(int i) {
 		super(i);
-		index = i;
+		this.index = i;
 	}
 	
 	public boolean isWalkway() {

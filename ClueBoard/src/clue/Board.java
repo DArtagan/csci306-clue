@@ -1,7 +1,7 @@
 package clue;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -14,52 +14,57 @@ public class Board {
 	protected static int numCols = 0;
 	private String [] config;
 	protected Map<Character, String> rooms;
-	
+
+	// Constructor
 	public Board() {
 		rooms = new HashMap<Character, String>();
 	}
-	
+
 	// Methods
-	public void loadConfigFiles(String board, String legend) throws FileNotFoundException, BadConfigFormatException {
+	public void loadConfigFiles(String board, String legend) throws IOException, BadConfigFormatException {
 		// Import Legend
-		FileReader reader2 = new FileReader(legend);
-		Scanner in2 = new Scanner(reader2);
-		while(in2.hasNextLine()) {
-			String line = in2.nextLine();
+		FileReader legendReader = new FileReader(legend);
+		Scanner legendIn = new Scanner(legendReader);
+		while(legendIn.hasNextLine()) {
+			String line = legendIn.nextLine();
 			String[] parts = line.split(", ");
 			if(parts.length != 2 || parts[0] == "" || parts[1] == "") {
-				in2.close();
+				legendIn.close();
+				legendReader.close();
 				throw new BadConfigFormatException("Legend is malformed.");
 			}
 			this.rooms.put(parts[0].charAt(0), parts[1]);
 		}
-		in2.close();
-		
+		legendIn.close();
+		legendReader.close();
+
 		// Import Clue Board
-		FileReader reader1 = new FileReader(board);
-		Scanner in1 = new Scanner(reader1);
+		FileReader boardReader = new FileReader(board);
+		Scanner boardIn = new Scanner(boardReader);
 		String configString = "";
 		int col_count = -1;
 		int row_count = 0;
-		while(in1.hasNextLine()) {
-			String line = in1.nextLine();
+		while(boardIn.hasNextLine()) {
+			String line = boardIn.nextLine();
 			configString += line + ",";
 			String[] parts = line.split(",");
 			if(col_count == -1) {
 				col_count = parts.length;
 			} else {
 				if(col_count != parts.length) {
-					in1.close();
+					boardIn.close();
+					boardReader.close();
 					throw new BadConfigFormatException("Line length mismatch");
 				}
 			}
 			row_count += 1;
 		}
-		in1.close();
+		boardIn.close();
+		boardReader.close();
 		numCols = col_count;
 		numRows = row_count;
-		String [] tempConfig = configString.split(",");
-		
+		String[] tempConfig = configString.split(",");
+
 		for(String i: tempConfig) {
 			char key = i.charAt(0);
 			String value = rooms.get(key);
@@ -67,11 +72,11 @@ public class Board {
 		}
 		this.config = tempConfig;
 	}
-	
+
 	public int calcIndex(int row, int col) {
 		return (row * numCols) + col;
 	}
-	
+
 	public RoomCell getRoomCellAt(int row, int col) {
 		int index = this.calcIndex(row, col);
 		return new RoomCell(index, this.config[index]);
@@ -93,7 +98,7 @@ public class Board {
 		Board board = new Board();
 		try {
 			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -115,7 +120,7 @@ public class Board {
 		HashSet<Integer> visitedList = new HashSet<Integer>();
 		steps = steps + 1;
 		targetList = calcTargets(index, steps, targetList, visitedList);
-		// We want a set of cells, so make them be.
+		// Ssh, this was a Set of cells all along.
 		HashSet<BoardCell> targetCells = new HashSet<BoardCell>();
 		for(int target : targetList) {
 			targetCells.add(getCellAt(target));
@@ -125,6 +130,7 @@ public class Board {
 
 	private boolean youCanGoHere(BoardCell cell, RoomCell.DoorDirection direction, HashSet<Integer> visited) {
 		// The cell is either a walkway, or a door with the correct direction.
+		// Just trust us, don't try to think about it.
 		return ((!visited.contains(cell.index)) &&
 		   (cell.isWalkway() || (cell.isDoorway() && ((RoomCell) cell).getDoorDirection() == direction)));
 	}
@@ -161,6 +167,6 @@ public class Board {
 
 	public void calcAdjacencies() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

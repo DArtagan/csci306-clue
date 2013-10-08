@@ -6,22 +6,20 @@
 
 package clue;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 
 public class BoardCell {
 	// Constants
 	static final int MAX_ROW = Board.numRows;	// One beyond the board row size
 	static final int MAX_COL = Board.numCols;	// One beyond the board col size
-	
+
 	// Variables - initialize to impossible values
 	protected Integer index = null;
 	protected Integer top = null;
 	protected Integer right = null;
 	protected Integer bottom = null;
 	protected Integer left = null;
-	private HashSet<Integer> targetList;
-	
+
 	// Constructors
 	public BoardCell(int i) {
 		this.index = i;
@@ -38,15 +36,15 @@ public class BoardCell {
 	public boolean isWalkway() {
 		return false;
 	}
-	
+
 	public boolean isRoom() {
 		return false;
 	}
-	
+
 	public boolean isDoorway() {
 		return false;
 	}
-	
+
 	public LinkedList<Integer> getAdjList() {
 		LinkedList<Integer> adjList = new LinkedList<Integer>();
 		if(this.top != null) adjList.add(this.top);
@@ -59,13 +57,8 @@ public class BoardCell {
 	public int calcIndex(int row, int col) {
 		return (row * MAX_ROW) + col;
 	}
-	
+
 	public int getIndex() {
 		return this.index;
 	}
-	
-	/*public static void main(String[] args) {
-		BoardCell zero = new BoardCell(0);
-		System.out.println(zero.getTargets(4));
-	}*/
 }

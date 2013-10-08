@@ -2,7 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class TestBoardFunctions {
 	int columns;
 
 	@Before
-	public void setUp() throws FileNotFoundException, BadConfigFormatException {
+	public void setUp() throws IOException, BadConfigFormatException {
 		board = new Board();
 		board.loadConfigFiles("ClueBoard.csv", "legend.txt");
 		rows = 23;
@@ -71,7 +71,7 @@ public class TestBoardFunctions {
 		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 
 		room = board.getRoomCellAt(10, 10);
-		assertTrue(room.isDoorway());
+		assertFalse(room.isDoorway());
 		assertEquals(RoomCell.DoorDirection.NONE, room.getDoorDirection());
 	}
 
@@ -95,7 +95,7 @@ public class TestBoardFunctions {
 	}
 
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadConfigFormatException() throws BadConfigFormatException, FileNotFoundException {
+	public void testBadConfigFormatException() throws BadConfigFormatException, IOException {
 		// board has bad config files!
 		board.loadConfigFiles("CR_ClueLayoutBadColumns.csv", "legend.txt");
 	}
