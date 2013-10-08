@@ -2,23 +2,25 @@ package clue;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystemNotFoundException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Board {
 	protected static int numRows;
 	protected static int numCols;
 	private String[] config;
-	private Map<Character, String> rooms;
+	private HashMap<Character, String> rooms;
+	private HashMap<Integer, BoardCell> cellCache;
 
 	public Board() {
 		rooms = new HashMap<Character, String>();
+		cellCache = new HashMap<Integer, BoardCell>();
 	}
 
-	public Map<Character, String> getRooms() {
+	public HashMap<Character, String> getRooms() {
 		return rooms;
 	}
 
@@ -93,16 +95,23 @@ public class Board {
 
 	public RoomCell getRoomCellAt(int row, int col) {
 		// No error checking? What happens if this is not a room cell?
+		// Note that this does not use the cellCache, because we shouldn't
+		// risk filling our cache with arbitrary RoomCells instead of cells
+		// based on the config.
 		int index = this.calcIndex(row, col);
-		return new RoomCell(index, this.config[index]);
+		return new RoomCell(index, numRows, numCols, config[index]);
 	}
 
 	public BoardCell getCellAt(int i) {
-		if(config[i].equals("W")) {
-			return new WalkwayCell(i);
-		} else {
-			return new RoomCell(i, this.config[i]);
+		if(cellCache.get(i) == null) {
+			// Then create the cell.
+			if(config[i].equals("W")) {
+				cellCache.put(i, new WalkwayCell(i, numRows, numCols));
+			} else {
+				cellCache.put(i, new RoomCell(i, numRows, numCols, config[i]));
+			}
 		}
+		return cellCache.get(i);
 	}
 
 	public LinkedList<Integer> getAdjList(int index) {
@@ -111,36 +120,28 @@ public class Board {
 		BoardCell cell = getCellAt(index);
 		if(cell.isDoorway()) {
 			switch(((RoomCell) cell).getDoorDirection()) {
-				case UP:
-					adjCells.add(cell.top);
-					break;
-				case RIGHT:
-					adjCells.add(cell.right);
-					break;
-				case DOWN:
-					adjCells.add(cell.bottom);
-					break;
-				case LEFT:
-					adjCells.add(cell.left);
-					break;
-				default:
-					break;
-					// isDoorway already checks that direction is not NONE, 
-					// default case should never happen.
+				case UP: adjCells.add(cell.top); break;
+				case RIGHT: adjCells.add(cell.right); break;
+				case DOWN: adjCells.add(cell.bottom); break;
+				case LEFT: adjCells.add(cell.left); break;
+				default: break;
+				// isDoorway already checks that direction is not NONE,
+				// default case should never happen.
 			}
+			// This is the only adjacency for doors.
 			return adjCells;
 		} else if(cell.isRoom()) {
-			return adjCells;
 			// Room cells (that are not doors) don't have any adjacencies.
+			return adjCells;
 		}
 
+		// Here, we use the fact that LinkedLists and arrays are both ordered
+		// to associate each link with its proper door direction. If we are
+		// moving up, we may only enter doors with a direction of DOWN, etc.
 		adjList.add(cell.top);
 		adjList.add(cell.right);
 		adjList.add(cell.bottom);
 		adjList.add(cell.left);
-		// Here, we use the fact that LinkedLists and arrays are both ordered
-		// to associate each link with its proper door direction. If we are
-		// moving up, we may only enter doors with a direction of DOWN, etc.
 		RoomCell.DoorDirection[] cardinals = {RoomCell.DoorDirection.DOWN, RoomCell.DoorDirection.LEFT, RoomCell.DoorDirection.UP, RoomCell.DoorDirection.RIGHT};
 		for(int i = 0; i<cardinals.length; ++i) {
 			if(adjList.get(i) == null) {

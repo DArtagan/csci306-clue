@@ -5,8 +5,8 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 
-	public RoomCell(int i, String config) {
-		super(i);
+	public RoomCell(int i, int rows, int cols, String config) {
+		super(i, rows, cols);
 		doorDirection = DoorDirection.NONE;
 		this.roomInitial = config.charAt(0);
 		String roomSpec = config;
