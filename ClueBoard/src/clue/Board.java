@@ -155,59 +155,34 @@ public class Board {
 		HashSet<Integer> targetList = new HashSet<Integer>();
 		HashSet<Integer> visitedList = new HashSet<Integer>();
 		steps = steps + 1;
-		targetList = calcTargets(index, steps, targetList, visitedList);
-		System.out.println(targetList);
+		if(getCellAt(index).isDoorway()) {
+			targetList = calcTargets(getAdjList(index).get(0), steps - 1, targetList, visitedList);
+			targetList.remove(index);
+		} else {
+			targetList = calcTargets(index, steps, targetList, visitedList);
+		}
 		// Ssh, this was a Set of cells all along.
 		HashSet<BoardCell> targetCells = new HashSet<BoardCell>();
 		for(int target : targetList) {
 			targetCells.add(getCellAt(target));
 		}
-		System.out.println(targetCells);
 		return targetCells;
 	}
 
 	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
 		steps = steps - 1;
 		visited.add(start);
-		if(steps == 0) {
+		if(getCellAt(start).isDoorway()) {
+			list.add(start);
+		} else if(steps == 0) {
 			list.add(start);
 		} else {
-			LinkedList<Integer> adjCells = new LinkedList<Integer>();
 			for(Integer adjCell : getAdjList(start)) {
 				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
 				if(!visited.contains(adjCell)) {
-					//adjCells.add(adjCell);
 					list = calcTargets(adjCell, steps, list, visitedTemp);
 				}
-				visited.remove(adjCell);
 			}
-			/*for(int i = 0; i<cardinals.length; ++i) {
-				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
-				BoardCell cellTemp = getCellAt(adjCells.get(i));
-				System.out.printf("Index: %s, isWalkway: %s, isDoorway: %s, direction: %s\n", cellTemp.index, cellTemp.isWalkway(), cellTemp.isDoorway(), ((RoomCell) cellTemp).getDoorDirection());
-				if (!visited.contains(adjCells.get(i)) &&
-					(cellTemp.isWalkway() || (cellTemp.isDoorway() && ((RoomCell) cellTemp).getDoorDirection() == cardinals[i])))
-					list = calcTargets(adjCells.get(i), steps, list, visitedTemp);
-			}
-			/*HashSet<Integer> visited1 = new HashSet<Integer>(visited);
-			if(cell.top != null && youCanGoHere(getCellAt(cell.top), RoomCell.DoorDirection.DOWN, visited1)) {
-				list = calcTargets(cell.top, steps, list, visited1);
-			}
-
-			HashSet<Integer> visited2 = new HashSet<Integer>(visited);
-			if(cell.right != null && youCanGoHere(getCellAt(cell.top), RoomCell.DoorDirection.LEFT, visited2)) {
-				list = calcTargets(cell.top, steps, list, visited1);
-			}
-
-			HashSet<Integer> visited3 = new HashSet<Integer>(visited);
-			if(cell.bottom != null && youCanGoHere(getCellAt(cell.top), RoomCell.DoorDirection.UP, visited3)) {
-				list = calcTargets(cell.top, steps, list, visited1);
-			}
-
-			HashSet<Integer> visited4 = new HashSet<Integer>(visited);
-			if(cell.left != null && youCanGoHere(getCellAt(cell.top), RoomCell.DoorDirection.RIGHT, visited4)) {
-				list = calcTargets(cell.top, steps, list, visited1);
-			}*/
 		}
 		return list;
 	}

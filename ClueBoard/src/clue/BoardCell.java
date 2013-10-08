@@ -6,8 +6,6 @@
 
 package clue;
 
-import java.util.LinkedList;
-
 public class BoardCell {
 	// Constants
 	static final int MAX_ROW = Board.numRows;	// One beyond the board row size
@@ -56,6 +54,10 @@ public class BoardCell {
 		} else if (!index.equals(other.index))
 			return false;
 		return true;
+	}
+	
+	public String toString() {
+		return index.toString();
 	}
 
 	public boolean isWalkway() {
