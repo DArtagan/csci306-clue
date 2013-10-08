@@ -1,6 +1,6 @@
 package test;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -19,7 +19,7 @@ public class CR_BoardAdjTargetTests {
 		board = new Board();
 		try {
 			board.loadConfigFiles("CR_ClueLayout.csv", "CR_ClueLegend.txt");
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();

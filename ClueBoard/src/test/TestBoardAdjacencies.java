@@ -2,7 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -24,7 +24,7 @@ public class TestBoardAdjacencies {
 		board = new Board();
 		try {
 			board.loadConfigFiles("ClueBoard.csv", "legend.txt");
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
