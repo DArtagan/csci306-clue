@@ -8,8 +8,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Board {
-	protected static int numRows;
-	protected static int numCols;
+	private int numRows, numCols;
 	private String[] config;
 	private HashMap<Character, String> rooms;
 	private HashMap<Integer, BoardCell> cellCache;
