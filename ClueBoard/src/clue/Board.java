@@ -76,11 +76,9 @@ public class Board {
 		numRows = row_count;
 
 		String[] tempConfig = configString.split(",");
-		char key;
 		String value;
 		for(String i : tempConfig) {
-			key = i.charAt(0);
-			value = rooms.get(key);
+			value = rooms.get(i.charAt(0));
 			if(value == null) throw new BadConfigFormatException("Invalid room character in board config.");
 		}
 		config = tempConfig;
