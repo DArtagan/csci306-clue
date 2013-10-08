@@ -29,7 +29,6 @@ public class TestBoardAdjacencies {
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
-		board.calcAdjacencies();
 		list = null;
 		targets = null;
 	}

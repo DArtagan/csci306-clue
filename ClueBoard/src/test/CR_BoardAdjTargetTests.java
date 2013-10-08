@@ -24,8 +24,6 @@ public class CR_BoardAdjTargetTests {
 		} catch (BadConfigFormatException e) {
 			e.printStackTrace();
 		}
-		board.calcAdjacencies();
-
 	}
 
 	// Ensure that player does not move around within room
