@@ -97,7 +97,7 @@ public class Board {
 		// Note that this does not use the cellCache, because we shouldn't
 		// risk filling our cache with arbitrary RoomCells instead of cells
 		// based on the config.
-		int index = this.calcIndex(row, col);
+		int index = calcIndex(row, col);
 		return new RoomCell(index, numRows, numCols, config[index]);
 	}
 

@@ -8,15 +8,15 @@ public class RoomCell extends BoardCell {
 	public RoomCell(int i, int rows, int cols, String config) {
 		super(i, rows, cols);
 		doorDirection = DoorDirection.NONE;
-		this.roomInitial = config.charAt(0);
+		roomInitial = config.charAt(0);
 		String roomSpec = config;
 
 		if(roomSpec.length() > 1) { // Then we have a door.
 			char door = roomSpec.charAt(1);
-			if(door == 'U') this.doorDirection = DoorDirection.UP;
-			else if(door == 'R') this.doorDirection = DoorDirection.RIGHT;
-			else if(door == 'D') this.doorDirection = DoorDirection.DOWN;
-			else if(door == 'L') this.doorDirection = DoorDirection.LEFT;
+			if(door == 'U') doorDirection = DoorDirection.UP;
+			else if(door == 'R') doorDirection = DoorDirection.RIGHT;
+			else if(door == 'D') doorDirection = DoorDirection.DOWN;
+			else if(door == 'L') doorDirection = DoorDirection.LEFT;
 		}
 	}
 
