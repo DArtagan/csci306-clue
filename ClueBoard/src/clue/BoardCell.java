@@ -8,19 +8,18 @@ package clue;
 
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
 
 public class BoardCell {
 	// Constants
-	int MAX_ROW = 23;	// One beyond the board row size
-	int MAX_COL = 23;	// One beyond the board col size
+	static final int MAX_ROW = Board.numRows;	// One beyond the board row size
+	static final int MAX_COL = Board.numCols;	// One beyond the board col size
 	
 	// Variables - initialize to impossible values
-	private Integer index = null;
-	private Integer top = null;
-	private Integer right = null;
-	private Integer bottom = null;
-	private Integer left = null;
+	protected Integer index = null;
+	protected Integer top = null;
+	protected Integer right = null;
+	protected Integer bottom = null;
+	protected Integer left = null;
 	private HashSet<Integer> targetList;
 	
 	// Constructors
@@ -47,33 +46,6 @@ public class BoardCell {
 	public boolean isDoorway() {
 		return false;
 	}
-
-	public Set<Integer> getTargets(int steps) {
-		this.targetList = new HashSet<Integer>();
-		HashSet<Integer> visitedList = new HashSet<Integer>();
-		steps = steps + 1;
-		this.targetList = calcTargets(this.index, steps, this.targetList, visitedList);
-		return this.targetList;
-	}
-	
-	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
-		steps = steps - 1;
-		BoardCell cell = new BoardCell(start);
-		visited.add(start);
-		if(steps == 0) {
-			list.add(start);
-		} else {
-			HashSet<Integer> visited1 = new HashSet<Integer>(visited);
-			if(cell.top != null && !(visited.contains(cell.top))) list = calcTargets(cell.top, steps, list, visited1);
-			HashSet<Integer> visited2 = new HashSet<Integer>(visited);
-			if(cell.right != null && !(visited.contains(cell.right))) list = calcTargets(cell.right, steps, list, visited2);
-			HashSet<Integer> visited3 = new HashSet<Integer>(visited);
-			if(cell.bottom != null && !(visited.contains(cell.bottom))) list = calcTargets(cell.bottom, steps, list, visited3);
-			HashSet<Integer> visited4 = new HashSet<Integer>(visited);
-			if(cell.left != null && !(visited.contains(cell.left))) list = calcTargets(cell.left, steps, list, visited4);
-		}
-		return list;
-	}
 	
 	public LinkedList<Integer> getAdjList() {
 		LinkedList<Integer> adjList = new LinkedList<Integer>();
@@ -92,8 +64,8 @@ public class BoardCell {
 		return this.index;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		BoardCell zero = new BoardCell(0);
 		System.out.println(zero.getTargets(4));
-	}
+	}*/
 }

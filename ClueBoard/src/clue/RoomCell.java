@@ -6,14 +6,10 @@ public class RoomCell extends BoardCell {
 	private char roomInitial;
 	private int index;
 
-	public RoomCell(int i) {
+	public RoomCell(int i, String config) {
 		super(i);
-		createRoomCell(i);
-	}
-	
-	private void createRoomCell(int i) {
-		this.roomInitial = Board.config[i].charAt(0);
-		String roomSpec = Board.config[i];
+		this.roomInitial = config.charAt(0);
+		String roomSpec = config;
 		this.index = i;
 		if (roomSpec.length() > 1) {
 			char door = roomSpec.charAt(1);
