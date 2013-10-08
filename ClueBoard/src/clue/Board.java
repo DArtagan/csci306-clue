@@ -95,13 +95,60 @@ public class Board {
 	}
 
 	public BoardCell getCellAt(int i) {
-		if(config[i] == "W") return new WalkwayCell(i);
-		else return new RoomCell(i, this.config[i]);
+		if(config[i].equals("W")) {
+			return new WalkwayCell(i);
+		}
+		else {
+			return new RoomCell(i, this.config[i]);
+		}
 	}
 
-	public LinkedList<Integer> getAdjList(int calcIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	public LinkedList<Integer> getAdjList(int index) {
+		LinkedList<Integer> adjList = new LinkedList<Integer>();
+		LinkedList<Integer> adjCells = new LinkedList<Integer>();
+		BoardCell cell = getCellAt(index);
+		if(cell.isDoorway()) {
+			switch(((RoomCell) cell).getDoorDirection()) {
+				case UP:
+					adjCells.add(cell.top);
+					break;
+				case RIGHT:
+					adjCells.add(cell.right);
+					break;
+				case DOWN:
+					adjCells.add(cell.bottom);
+					break;
+				case LEFT:
+					adjCells.add(cell.left);
+					break;
+				default:
+					break;
+					// Don't put a doorway into nothing... :(
+			}
+			return adjCells;
+		} else if(cell.isRoom()) {
+			return adjCells;
+			// Room cells don't have any adjacencies.
+		}
+
+		adjList.add(cell.top);
+		adjList.add(cell.right);
+		adjList.add(cell.bottom);
+		adjList.add(cell.left);
+		
+		RoomCell.DoorDirection[] cardinals = {RoomCell.DoorDirection.DOWN, RoomCell.DoorDirection.LEFT, RoomCell.DoorDirection.UP, RoomCell.DoorDirection.RIGHT};
+		for(int i = 0; i<cardinals.length; ++i) {
+			if(adjList.get(i) == null) {
+				continue;
+			}
+			BoardCell cellTemp = getCellAt(adjList.get(i));
+			if(cellTemp.isWalkway() || (cellTemp.isDoorway() && ((RoomCell) cellTemp).getDoorDirection() == cardinals[i])) {
+				// The cell is either a walkway, or a door with the correct direction.
+				// Just trust us, don't try to think about it.
+				adjCells.add(cellTemp.index);
+			}
+		}
+		return adjCells;
 	}
 
 	public HashSet<BoardCell> getTargets(int index, int steps) {
@@ -117,21 +164,27 @@ public class Board {
 		return targetCells;
 	}
 
-	private boolean youCanGoHere(BoardCell cell, RoomCell.DoorDirection direction, HashSet<Integer> visited) {
-		// The cell is either a walkway, or a door with the correct direction.
-		// Just trust us, don't try to think about it.
-		return ((!visited.contains(cell.index)) &&
-		   (cell.isWalkway() || (cell.isDoorway() && ((RoomCell) cell).getDoorDirection() == direction)));
-	}
-
 	private HashSet<Integer> calcTargets(int start, int steps, HashSet<Integer> list, HashSet<Integer> visited) {
 		steps = steps - 1;
-		BoardCell cell = getCellAt(start);
 		visited.add(start);
 		if(steps == 0) {
 			list.add(start);
 		} else {
-			HashSet<Integer> visited1 = new HashSet<Integer>(visited);
+			LinkedList<Integer> adjCells = new LinkedList<Integer>();
+			for(Integer adjCell : getAdjList(start)) {
+				if(!visited.contains(adjCell)) {
+					adjCells.add(adjCell);
+				}
+			}
+			/*for(int i = 0; i<cardinals.length; ++i) {
+				HashSet<Integer> visitedTemp = new HashSet<Integer>(visited);
+				BoardCell cellTemp = getCellAt(adjCells.get(i));
+				System.out.printf("Index: %s, isWalkway: %s, isDoorway: %s, direction: %s\n", cellTemp.index, cellTemp.isWalkway(), cellTemp.isDoorway(), ((RoomCell) cellTemp).getDoorDirection());
+				if (!visited.contains(adjCells.get(i)) &&
+					(cellTemp.isWalkway() || (cellTemp.isDoorway() && ((RoomCell) cellTemp).getDoorDirection() == cardinals[i])))
+					list = calcTargets(adjCells.get(i), steps, list, visitedTemp);
+			}
+			/*HashSet<Integer> visited1 = new HashSet<Integer>(visited);
 			if(cell.top != null && youCanGoHere(getCellAt(cell.top), RoomCell.DoorDirection.DOWN, visited1)) {
 				list = calcTargets(cell.top, steps, list, visited1);
 			}
@@ -149,7 +202,7 @@ public class Board {
 			HashSet<Integer> visited4 = new HashSet<Integer>(visited);
 			if(cell.left != null && youCanGoHere(getCellAt(cell.top), RoomCell.DoorDirection.RIGHT, visited4)) {
 				list = calcTargets(cell.top, steps, list, visited1);
-			}
+			}*/
 		}
 		return list;
 	}

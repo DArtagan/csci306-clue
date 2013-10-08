@@ -45,15 +45,6 @@ public class BoardCell {
 		return false;
 	}
 
-	public LinkedList<Integer> getAdjList() {
-		LinkedList<Integer> adjList = new LinkedList<Integer>();
-		if(this.top != null) adjList.add(this.top);
-		if(this.right != null) adjList.add(this.right);
-		if(this.bottom != null) adjList.add(this.bottom);
-		if(this.left != null) adjList.add(this.left);
-		return adjList;
-	}
-
 	public int getIndex() {
 		return this.index;
 	}
