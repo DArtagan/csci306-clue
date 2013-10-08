@@ -16,6 +16,7 @@ public class BadConfigFormatException extends Exception {
 			log.write("\r\n");
 			log.close();
 		} catch (IOException e) {
+			// What to do when you except in your exception?
 			e.printStackTrace();
 		}
 	}
