@@ -7,10 +7,11 @@ public class RoomCell extends BoardCell {
 
 	public RoomCell(int i, int rows, int cols, String config) {
 		super(i, rows, cols);
+		
+		// Door handling.
 		doorDirection = DoorDirection.NONE;
 		roomInitial = config.charAt(0);
 		String roomSpec = config;
-
 		if(roomSpec.length() > 1) { // Then we have a door.
 			char door = roomSpec.charAt(1);
 			if(door == 'U') doorDirection = DoorDirection.UP;
