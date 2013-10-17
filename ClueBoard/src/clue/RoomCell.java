@@ -5,8 +5,8 @@ public class RoomCell extends BoardCell {
 	private DoorDirection doorDirection;
 	private char roomInitial;
 
-	public RoomCell(int i, int rows, int cols, String config) {
-		super(i, rows, cols);
+	public RoomCell(int i, int numRows, int numCols, String config) {
+		super(i, numRows, numCols);
 		
 		// Door handling.
 		doorDirection = DoorDirection.NONE;
