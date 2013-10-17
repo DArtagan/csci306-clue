@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Board {
+	private static final String WALKWAY_INITIAL = "W";
 	private int numRows, numCols;
 	private String[] config;
 	private HashMap<Character, String> rooms;
@@ -105,7 +106,7 @@ public class Board {
 	public BoardCell getCellAt(int i) {
 		if(cellCache.get(i) == null) {
 			// Then create the cell.
-			if(config[i].equals("W")) {
+			if(config[i].equals(WALKWAY_INITIAL)) {
 				cellCache.put(i, new WalkwayCell(i, numRows, numCols));
 			} else {
 				cellCache.put(i, new RoomCell(i, numRows, numCols, config[i]));
