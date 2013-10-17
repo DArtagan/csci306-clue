@@ -1,8 +1,8 @@
 package clue;
 
 public class WalkwayCell extends BoardCell {
-	public WalkwayCell(int i, int rows, int cols) {
-		super(i, rows, cols);
+	public WalkwayCell(int i, int numRows, int numCols) {
+		super(i, numRows, numCols);
 	}
 	
 	public boolean isWalkway() {
