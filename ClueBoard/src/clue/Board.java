@@ -14,7 +14,6 @@ public class Board {
 	private HashMap<Integer, BoardCell> cellCache;
 
 	public Board() {
-		rooms = new HashMap<Character, String>();
 		cellCache = new HashMap<Integer, BoardCell>();
 	}
 
@@ -31,6 +30,8 @@ public class Board {
 	}
 
 	public void loadConfigFiles(String board, String legend) throws IOException, BadConfigFormatException {
+		rooms = new HashMap<Character, String>();
+
 		// Import Legend
 		FileReader legendReader = new FileReader(legend);
 		Scanner legendIn = new Scanner(legendReader);
