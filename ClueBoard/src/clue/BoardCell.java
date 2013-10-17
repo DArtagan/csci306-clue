@@ -3,16 +3,16 @@ package clue;
 public class BoardCell {
 	protected Integer index, top, right, bottom, left;
 
-	public BoardCell(int i, int rows, int cols) {
+	public BoardCell(int i, int numRows, int numCols) {
 		index = i;
 		// Initialize our links.
-		if((index - cols) >= 0)
-			top = index - cols;
-		if((index + cols) < (rows*cols))
-			bottom = index + cols;
-		if((index % cols) > 0)
+		if((index - numCols) >= 0)
+			top = index - numCols;
+		if((index + numCols) < (numRows*numCols))
+			bottom = index + numCols;
+		if((index % numCols) > 0)
 			left = index - 1;
-		if(((index + 1) % cols) > 0)
+		if(((index + 1) % numCols) > 0)
 			right = index + 1;
 	}
 
